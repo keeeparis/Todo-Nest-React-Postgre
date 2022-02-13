@@ -7,6 +7,8 @@ import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { APP_PIPE } from '@nestjs/core';
 import { ValidationPipe } from './pipes/validation.pipe';
+import { AuthModule } from './auth/auth.module';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
     imports: [
@@ -25,7 +27,9 @@ import { ValidationPipe } from './pipes/validation.pipe';
             autoLoadModels: true
         }),
         UsersModule,
-        PostsModule
+        PostsModule,
+        AuthModule,
+        RolesModule
     ],
     controllers: [AppController],
     providers: [

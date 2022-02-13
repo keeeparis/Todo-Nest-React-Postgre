@@ -1,6 +1,9 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from './dto/create-user-dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/roles/roles.decorator';
+import { addRoleDto } from './dto/add-role.dto';
 import { User } from './users.model';
 import { UsersService } from './users.service';
 
@@ -12,14 +15,21 @@ export class UsersController {
     @ApiOperation({ summary: 'Получение всех пользователей' })
     @ApiResponse({ status: 200, type: [User] })
     @Get()
-    getAll() {
-        return this.usersService.getAllUsers()
+    getAll(): Promise<User[]> {
+        return this.usersService.getAllUsers() // TODO: видеть всех пользователей может только админ
     }
 
-    @ApiOperation({ summary: 'Создание пользователя' })
-    @ApiResponse({ status: 200, type: User })
-    @Post()
-    createUser(@Body() dto: CreateUserDto) {
-        return this.usersService.createUser(dto)
+    @Roles('ADMIN')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Get('profile')
+    getProfile(@Req() req) {
+        return req.user
+    }
+
+    @Roles('ADMIN')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Post('role')
+    addRole(@Body() dto: addRoleDto) {
+        return this.usersService.addRole(dto)
     }
 }
