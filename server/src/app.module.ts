@@ -1,14 +1,20 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import { Module } from '@nestjs/common';
+import { APP_PIPE } from '@nestjs/core';
+
+import { ValidationPipe } from './pipes/validation.pipe';
+
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
-import { APP_PIPE } from '@nestjs/core';
-import { ValidationPipe } from './pipes/validation.pipe';
-import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
+import { AuthModule } from './auth/auth.module';
+
+import { UserRoles } from './roles/user-roles.model';
+import { User } from './users/users.model';
+import { Role } from './roles/roles.model';
+import { Post } from './posts/posts.model';
+import { FilesModule } from './files/files.module';
 
 @Module({
     imports: [
@@ -23,17 +29,17 @@ import { RolesModule } from './roles/roles.module';
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [],
+            models: [User, Role, UserRoles, Post],
             autoLoadModels: true
         }),
         UsersModule,
         PostsModule,
         AuthModule,
-        RolesModule
+        RolesModule,
+        FilesModule
     ],
-    controllers: [AppController],
+    controllers: [],
     providers: [
-        AppService,
         {
             provide: APP_PIPE,
             useClass: ValidationPipe
