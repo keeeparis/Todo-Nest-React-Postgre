@@ -20,3 +20,14 @@ export interface Role {
     value: string;
     description: string;
 }
+
+export interface UserCreds {
+    email: string;
+    password: string;
+}
+
+export interface authIS {
+    currentUser: string | null | User,
+    error: string | null,
+    isLoading: boolean
+}

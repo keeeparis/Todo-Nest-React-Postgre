@@ -1,0 +1,50 @@
+version: '3.7'
+services:
+  server:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile.dev
+    networks:
+      - webapp
+      - database
+    ports:
+      - 5500:5500
+    volumes:
+      - ./server/node_modules:/app/node_modules
+      - ./server/src:/app/src
+    depends_on:
+      - postgres
+    restart: always
+
+  postgres:
+    image: postgres
+    networks:
+      - database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=todoapp
+    restart: always
+    volumes:
+      - ./server/database/data/dev:/var/lib/postgresql/data
+
+  client:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client/node_modules:/app/node_modules
+      - ./client/src:/app/src
+      - ./client/public:/app/public
+    networks:
+      - webapp
+    ports:
+      - 3000:3000
+    stdin_open: true
+    restart: always
+
+networks:
+  webapp:
+    driver: bridge
+  database:
+    driver: bridge
