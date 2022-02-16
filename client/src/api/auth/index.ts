@@ -3,13 +3,17 @@ import { UserCreds } from "../../types";
 import { setLocalStorageToken } from '../../utils/index'
 
 const handleError = (error: any) => {
-    let message
-    if (axios.isAxiosError(error)) {
-        message = error.response?.data.message
-    } else {
-        message = String(error)
-    }
-    return message
+    // let message
+    // if (axios.isAxiosError(error)) {
+    //     message = error.response?.data.message
+    // } else {
+    //     message = String(error)
+    // }
+    // return message
+
+    return axios.isAxiosError(error) 
+        ? error.response?.data.message
+        : String(error)
 }
 
 export const registerUser = async (creds: UserCreds) => {
