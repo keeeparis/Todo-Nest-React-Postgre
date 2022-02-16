@@ -7,7 +7,9 @@ export default function Home() {
 
     useEffect(() => {
         async function getData() {
-            const res = await axios.get('/api/users')
+            const res = await axios.get('/api/users', { headers: {
+                Authorization: `Bearer ${localStorage.getItem(process.env.REACT_APP_LOCAL_TOKEN as string)}`
+            }})
             setUsers(res.data)
         }
         getData()

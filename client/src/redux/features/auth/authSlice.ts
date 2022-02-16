@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { registerUser } from "../../../api/auth";
 import { authIS, UserCreds } from "../../../types";
+import { RootState } from "../../store/store";
 
 const initialState: authIS = {
     currentUser: null,
@@ -18,17 +19,17 @@ const authSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(register.pending, (state, payload) => {
+            .addCase(registerRedux.pending, (state, payload) => {
                 state.error = null
                 state.isLoading = true
             })
-            .addCase(register.fulfilled, (state, payload: any) => {
+            .addCase(registerRedux.fulfilled, (state, action: any) => {
                 state.isLoading = false
-                state.currentUser = payload
+                state.currentUser = action.meta.arg.email
             })
-            .addCase(register.rejected, (state, payload: any) => {
+            .addCase(registerRedux.rejected, (state, action: any) => {
                 state.isLoading = false
-                state.error = payload.error.message
+                state.error = action.payload
             })
     }
 })
@@ -37,9 +38,19 @@ export default authSlice.reducer
 
 // export const { register } = authSlice.actions
 
-export const register = createAsyncThunk(
+export const getError = (state: RootState) => state.auth.error
+export const getCurrentUser = (state: RootState) => state.auth.currentUser
+export const getIsLoading = (state: RootState) => state.auth.isLoading
+
+export const registerRedux = createAsyncThunk(
     'auth/register',
-    async ( creds: UserCreds ) => {
-        await registerUser(creds)
+    async (creds: UserCreds, { rejectWithValue }) => {
+        try {
+            const response = await registerUser(creds)
+            const { data } = response
+            return data
+        } catch (e) {
+            return rejectWithValue(e) 
+        }
     }
 )

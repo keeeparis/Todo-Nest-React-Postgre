@@ -1,0 +1,14 @@
+body {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+}
+
+.input-control {
+    display: flex;
+    flex-direction: column;
+
+    .error {
+        color: #ff3860;
+        font-size: 9px;
+        height: 13px;
+    }
+}
