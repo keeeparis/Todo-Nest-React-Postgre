@@ -16,7 +16,7 @@ const PopUp = () => {
     }, [error])
 
     return (
-        <div></div>
+        <></>
     )
 }
 

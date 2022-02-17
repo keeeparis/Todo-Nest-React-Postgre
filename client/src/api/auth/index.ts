@@ -27,3 +27,28 @@ export const registerUser = async (creds: UserCreds) => {
         throw handleError(e)
     }
 }
+
+export const loginUser = async (creds: UserCreds) => {
+    try {
+        const response = await axios.post('/api/auth/login', creds)
+
+        setLocalStorageToken(response.data.token)
+
+        return response
+    } catch (e) {
+        throw handleError(e)
+    }
+}
+
+export const getProfile = async (token: string) => {
+    try {
+        const response = await axios.get('/api/users/profile', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response
+    } catch (e) {
+        throw handleError(e)
+    }
+}

@@ -33,14 +33,15 @@ export class AuthService {
     }
     
     private async validateUser(userDto: CreateUserDto): Promise<User> {
-        const user = await this.userService.getUsersByEmail(userDto.email)
-        const passwordsEqual = await bcrypt.compare(userDto.password, user.password)
-
-        if (user && passwordsEqual) {
-            return user
+        try {
+            const user = await this.userService.getUsersByEmail(userDto.email)
+            const passwordsEqual = await bcrypt.compare(userDto.password, user.password)
+    
+            if (user && passwordsEqual) {
+                return user
+            }
+        } catch (e) {
+            throw new UnauthorizedException({ message: 'Некорректный email или пароль' })
         }
-        
-        throw new UnauthorizedException({ message: 'Некорректный email или пароль' })
     }
-
 }

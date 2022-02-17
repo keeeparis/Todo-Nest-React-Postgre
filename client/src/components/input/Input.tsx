@@ -1,29 +1,25 @@
-import { Path, UseFormRegister } from 'react-hook-form'
-import { UserCreds } from '../../types'
+import { useController } from 'react-hook-form'
+import { InputProps } from '../../types'
 import classes from './Input.module.scss'
+import cn from 'classnames'
+import { toCapitalFirstLetter } from '../../utils'
 
-type InputProps = {
-    label: Path<UserCreds>,
-    register: UseFormRegister<UserCreds>,
-    required: boolean,
-    pattern?: RegExp,
-    minLength?: number,
-    maxLength?: number,
-    type?: string
-}
+const Input = ({ label, register, required, pattern, minLength, maxLength, type, control }: InputProps) => {
+    const { fieldState } = useController({
+        name: label,
+        control
+    })
 
-const toCapitalFirstLetter = (word: string) => word[0].toUpperCase() + word.substring(1)
-
-const Input = ({ label, register, required, pattern, minLength, maxLength, type }: InputProps) => (
-    <>
-        <label>{toCapitalFirstLetter(label)}</label>
-        <input 
-            className={classes.input}
-            type={type}
-            {...register(label, {required, pattern, minLength, maxLength})}
-        />
-    </>
-)
+    return (
+        <div className={classes.inputControl}>
+            <label>{toCapitalFirstLetter(label)}</label>
+            <input 
+                className={ fieldState.invalid ? cn(classes.input, classes.error) : classes.input}
+                type={type}
+                {...register(label, {required, pattern, minLength, maxLength})}
+            />
+        </div>
+)}
 
 
 export default Input

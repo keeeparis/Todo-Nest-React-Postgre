@@ -1,3 +1,8 @@
+.inputControl {
+    display: flex;
+    flex-direction: column;
+}
+
 .input {
     border: 2px solid #f0f0f0;
     border-radius: 4px;
@@ -8,5 +13,9 @@
 
     &:focus {
         outline: 0;
+    }
+
+    &.error {
+        border: 2px solid #cc2323;
     }
 }

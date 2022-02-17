@@ -1,3 +1,5 @@
+import { Control, Path, UseFormRegister } from 'react-hook-form'
+
 export interface User {
     id: number;
     email: string;
@@ -30,4 +32,15 @@ export interface authIS {
     currentUser: string | null | User,
     error: string | null,
     isLoading: boolean
+}
+
+export type InputProps = {
+    label: Path<UserCreds>,
+    register: UseFormRegister<UserCreds>,
+    required: boolean,
+    pattern?: RegExp,
+    minLength?: number,
+    maxLength?: number,
+    type?: string,
+    control: Control<UserCreds, object>
 }

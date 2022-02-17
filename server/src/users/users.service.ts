@@ -38,4 +38,14 @@ export class UsersService {
         }
         throw new HttpException('Пользователь или роль не найдены', HttpStatus.NOT_FOUND)
     }
+
+    async getProfile(email: string): Promise<any> {
+        const user = await this.getUsersByEmail(email)
+        
+        if (!user) {
+            throw new HttpException('Email не существует', HttpStatus.NOT_FOUND) // NotFoundException
+        }
+
+        return user.sanitazeData()
+    }
 }

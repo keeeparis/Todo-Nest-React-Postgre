@@ -23,11 +23,11 @@ export class UsersController {
         return this.usersService.getAllUsers()
     }
 
-    @Roles('ADMIN')
-    @UseGuards(JwtAuthGuard, RolesGuard)
-    @Get('profile')
-    getProfile(@Req() req) {
-        return req.user
+    // @Roles('ADMIN')
+    @UseGuards(JwtAuthGuard)
+    @Get('/profile')
+    getProfile(@Req() req: any) {
+        return this.usersService.getProfile(req.user.email)
     }
 
     @Roles('ADMIN')
