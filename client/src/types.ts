@@ -14,7 +14,6 @@ export interface Post {
     id: number;
     title: string;
     content: string;
-    image: string;
 }
 
 export interface Role {
@@ -43,4 +42,13 @@ export type InputProps = {
     maxLength?: number,
     type?: string,
     control: Control<UserCreds, object>
+}
+
+export type InputPostProps = {
+    label: Path<Post>,
+    register: UseFormRegister<Post>,
+    required: boolean,
+    pattern?: RegExp,
+    type?: string,
+    control: Control<Post, object>
 }

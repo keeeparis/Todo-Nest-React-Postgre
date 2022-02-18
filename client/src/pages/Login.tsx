@@ -4,7 +4,7 @@ import { loginRedux } from '../redux/features/auth/authSlice'
 import { UserCreds } from '../types'
 import FormRegister from '../components/form-register/FormRegister'
 import Button from '../components/button/Button'
-import Input from '../components/input/Input'
+import Input from '../components/input-auth/Input'
 import { useForm } from 'react-hook-form'
 import { AppDispatch } from '../redux/store/store'
 

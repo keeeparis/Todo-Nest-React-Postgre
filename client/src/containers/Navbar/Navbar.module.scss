@@ -10,18 +10,23 @@
     border-radius: 3px;
     justify-content: space-between;
     align-items: center;
+
+    & > div {
+        display: flex;
+        gap: 10px;
+    }
 }
 
-.links {
-    display: flex;
-    gap: 10px;
-}
+// .links {
+//     display: flex;
+//     gap: 10px;
+// }
 
-.basicLinks {
+// .basicLinks {
     // display: flex;
     // gap: 10px;
-}
+// }
 
-.authLinks {
+// .authLinks {
 
-}
+// }
