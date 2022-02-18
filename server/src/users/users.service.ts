@@ -19,7 +19,7 @@ export class UsersService {
     }
     
     async getAllUsers(): Promise<User[]> {
-        const users = await this.userRepository.findAll({ include: { all: true } })
+        const users = await this.userRepository.findAll({ include: { all: true } }) // TODO: sanitize data (exclude password from response)
         return users
     }
 

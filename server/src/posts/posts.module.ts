@@ -11,7 +11,7 @@ import { FilesModule } from 'src/files/files.module';
   controllers: [PostsController],
   imports: [
     SequelizeModule.forFeature([User, Post]),
-    FilesModule
+    FilesModule,
   ]
 })
 export class PostsModule {}

@@ -20,6 +20,7 @@ export default function Navbar() {
                 <div className={cn(classes.links, classes.basicLinks)}>
                     <Link to='/'>Home</Link>
                     <Link to='feed'>Feed</Link>
+                    <Link to='account'>Account</Link>
                 </div>
                 <div className={cn(classes.authLinks)}>
                     { currentUser 
