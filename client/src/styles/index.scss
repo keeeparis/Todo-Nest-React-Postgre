@@ -1,3 +1,12 @@
 body {
     background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
 }
+
+.account {
+    display: flex;
+    margin: 15px;
+
+    & > * {
+        flex: 1 0 auto;
+    }
+}

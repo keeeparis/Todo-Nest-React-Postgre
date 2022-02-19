@@ -46,6 +46,6 @@ export class UsersService {
             throw new HttpException('Email не существует', HttpStatus.NOT_FOUND) // NotFoundException
         }
 
-        return user.sanitazeData()
+        return user.sanitizeData()
     }
 }

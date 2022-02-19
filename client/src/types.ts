@@ -11,7 +11,7 @@ export interface User {
 }
 
 export interface Post {
-    id: number;
+    // id: number;
     title: string;
     content: string;
 }
