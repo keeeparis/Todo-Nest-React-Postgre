@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getProfile, loginUser, registerUser } from "../../../api/auth";
 import { authIS, UserCreds } from "../../../types";
-import { getLocalStorageToken, removeLocalStorageToken } from "../../../utils";
 import { RootState } from "../../store/store";
 
 const initialState: authIS = {
@@ -15,7 +14,6 @@ const authSlice = createSlice({
     initialState: initialState,
     reducers: {
         logOut(state) {
-            removeLocalStorageToken()
             state.currentUser = null
             state.isLoading = false
         }
@@ -32,7 +30,7 @@ const authSlice = createSlice({
             })
             .addCase(registerRedux.rejected, (state, action: any) => {
                 state.isLoading = false
-                state.error = action.payload
+                state.error = action.payload // TODO: одинаковый вывод ошибок с сервера
             })
             .addCase(loginRedux.pending, (state, action) => {
                 state.error = null
@@ -44,7 +42,7 @@ const authSlice = createSlice({
             })
             .addCase(loginRedux.rejected, (state, action: any) => {
                 state.isLoading = false
-                state.error = action.payload
+                state.error = action.payload // TODO: одинаковый вывод ошибок с сервера
             })
             .addCase(getProfileRedux.pending, (state, action) => {
                 state.error = null
@@ -57,7 +55,7 @@ const authSlice = createSlice({
             })
             .addCase(getProfileRedux.rejected, (state, action: any) => {
                 state.isLoading = false
-                state.error = action.error.message
+                state.error = action.error.message // TODO: одинаковый вывод ошибок с сервера
             })
     }
 })
@@ -99,13 +97,8 @@ export const loginRedux = createAsyncThunk(
 export const getProfileRedux = createAsyncThunk(
     'auth/profile',
     async () => {
-        const token = getLocalStorageToken()
-        if (token) {
-            const response = await getProfile(token)
-            const { data } = response
-            return data
-        } else {
-            return null
-        }
+        const response = await getProfile()
+        const { data } = response
+        return data
     }
 )

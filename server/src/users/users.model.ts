@@ -13,7 +13,6 @@ interface UserAttributes {
 type UserSO = {
     id: number;
     email: string;
-    posts: Post[];
     roles: Role[];
 }
 
@@ -37,9 +36,9 @@ export class User extends Model<User, UserAttributes> {
     @HasMany(() => Post)
     posts: Post[]
     
-    sanitazeData(): UserSO {
-        const { id, email, posts, roles } = this
-        const responseObj = { id, email, posts, roles }
+    sanitizeData(): UserSO {
+        const { id, email, roles } = this
+        const responseObj = { id, email, roles }
         return responseObj
     }
 }

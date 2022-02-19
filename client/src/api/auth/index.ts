@@ -1,6 +1,5 @@
 import axios from "axios";
 import { UserCreds } from "../../types";
-import { setLocalStorageToken } from '../../utils/index'
 
 const handleError = (error: any) => {
     return axios.isAxiosError(error) 
@@ -11,9 +10,6 @@ const handleError = (error: any) => {
 export const registerUser = async (creds: UserCreds) => {
     try {
         const response = await axios.post('/api/auth/register', creds)
-
-        setLocalStorageToken(response.data.token)
-
         return response
     } catch (e) {
         throw handleError(e)
@@ -23,21 +19,16 @@ export const registerUser = async (creds: UserCreds) => {
 export const loginUser = async (creds: UserCreds) => {
     try {
         const response = await axios.post('/api/auth/login', creds)
-
-        setLocalStorageToken(response.data.token)
-
         return response
     } catch (e) {
         throw handleError(e)
     }
 }
 
-export const getProfile = async (token: string) => {
+export const getProfile = async () => {
     try {
         const response = await axios.get('/api/users/profile', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+            withCredentials: true
         })
         return response
     } catch (e) {

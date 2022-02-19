@@ -19,29 +19,21 @@ export default function Navbar() {
             <nav className={classes.nav}>
                 <div>
                     <Link to='/'>Home</Link>
-                    {currentUser 
-                    ?   <>
+                    {currentUser &&
+                        <>
                             <Link to='feed'>Feed</Link>
                             <Link to='account'>Account</Link>
                         </>
-                    :   ''
                     }
                 </div>
                 <div>
-                    { currentUser 
-                        ? ( 
-                            <>
-                                <Link to='/' onClick={handleLogOut}>Log Out</Link> 
-                            </>
-                        ) 
-                        : !isLoading 
-                            ? (
+                    {currentUser 
+                        ?   <Link to='/' onClick={handleLogOut}>Log Out</Link>  
+                        :   !isLoading &&
                                 <>
                                     <Link to='register'>Register</Link>
                                     <Link to='login'>Log In</Link>
                                 </>
-                                ) 
-                            : '' 
                     }
                 </div>
             </nav>
