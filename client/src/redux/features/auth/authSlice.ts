@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getProfile, loginUser, registerUser } from "../../../api/auth";
+import { getProfile, loginUser, logoutUser, registerUser } from "../../../api/auth";
 import { authIS, UserCreds } from "../../../types";
 import { RootState } from "../../store/store";
 
@@ -12,12 +12,7 @@ const initialState: authIS = {
 const authSlice = createSlice({
     name: 'auth',
     initialState: initialState,
-    reducers: {
-        logOut(state) {
-            state.currentUser = null
-            state.isLoading = false
-        }
-    },
+    reducers: {},
     extraReducers(builder) {
         builder
             .addCase(registerRedux.pending, (state, payload) => {
@@ -57,12 +52,16 @@ const authSlice = createSlice({
                 state.isLoading = false
                 state.error = action.error.message // TODO: одинаковый вывод ошибок с сервера
             })
+            .addCase(logoutRedux.fulfilled, (state, action) => {
+                state.currentUser = null
+                state.isLoading = false
+            })
     }
 })
 
 export default authSlice.reducer
 
-export const { logOut } = authSlice.actions
+// export const {  } = authSlice.actions
 
 export const getError = (state: RootState) => state.auth.error
 export const getCurrentUser = (state: RootState) => state.auth.currentUser
@@ -98,6 +97,15 @@ export const getProfileRedux = createAsyncThunk(
     'auth/profile',
     async () => {
         const response = await getProfile()
+        const { data } = response
+        return data
+    }
+)
+
+export const logoutRedux = createAsyncThunk(
+    'auth/loggout',
+    async () => {
+        const response = await logoutUser()
         const { data } = response
         return data
     }

@@ -4,6 +4,9 @@ import FormPost from "../components/form-post/FormPost"
 import Input from '../components/input-post/Input'
 import { Post } from "../types"
 import UserPosts from '../containers/UserPosts/UserPosts'
+import { useDispatch, useSelector } from "react-redux"
+import { addNewPostRedux } from "../redux/features/post/postSlice"
+import { getCurrentUser } from "../redux/features/auth/authSlice"
 
 const Account = () => {
     const { 
@@ -13,8 +16,15 @@ const Account = () => {
         control 
     } = useForm<Post>()
 
-    const onSubmit = (data: any) => {
-        console.log(data)
+    const dispatch = useDispatch()
+
+    const currentUser = useSelector(getCurrentUser)
+
+    const onSubmit = (data: Post) => {
+        if (currentUser) {
+            const postData = {...data, userId: currentUser.id}
+            dispatch(addNewPostRedux(postData))
+        }
     }
 
     return (

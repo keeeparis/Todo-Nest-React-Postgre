@@ -8,6 +8,8 @@ import Account from './pages/Account'
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { getProfileRedux } from "./redux/features/auth/authSlice"
+import { PrivateRoute } from './components/privateroute/PrivateRoute'
+import { fetchPostsRedux } from "./redux/features/post/postSlice"
 
 
 export default function App() {
@@ -15,16 +17,23 @@ export default function App() {
 
     useEffect(() => {
         dispatch(getProfileRedux())
+        dispatch(fetchPostsRedux())
     }, [dispatch])
 
-    return (
+        return (
         <Routes>
             <Route path="/" element={<Layout />}>
+                <Route index element={<Home />}/>
                 <Route path="register" element={<Register />} />
                 <Route path="login" element={<Login />} />
-                <Route path='feed' element={<Feed />} />
-                <Route path='account' element={<Account />} />
-                <Route index element={<Home />}/>
+                <Route 
+                    path='account' 
+                    element={<PrivateRoute element={Account} />}
+                />
+                <Route 
+                    path='feed' 
+                    element={<PrivateRoute element={Feed} />}
+                />
             </Route>
         </Routes>
     );

@@ -5,7 +5,7 @@ interface PostAttributes {
     title: string;
     content: string;
     userId: number;
-    image: string;
+    image?: string;
 }
 
 @Table({ tableName: 'posts' })
@@ -13,13 +13,13 @@ export class Post extends Model<Post, PostAttributes> {
     @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
     id: number;
 
-    @Column({ type: DataType.STRING, unique: true, allowNull: false })
+    @Column({ type: DataType.STRING, allowNull: false })
     title: string;
 
     @Column({ type: DataType.STRING, allowNull: false })
     content: string;
 
-    @Column({ type: DataType.STRING })
+    @Column({ type: DataType.STRING, allowNull: true })
     image: string;
 
     @ForeignKey(() => User)
@@ -27,5 +27,11 @@ export class Post extends Model<Post, PostAttributes> {
     userId: number;
 
     @BelongsTo(() => User)
-    author: User
+    author: User;
+
+    sanitizeData() {
+        const { id, title, content, createdAt, updatedAt, image, userId, author: { email } } = this
+        const sanitizedObject = { id, title, content, createdAt, updatedAt, image, userId, email}
+        return sanitizedObject
+    }
 }

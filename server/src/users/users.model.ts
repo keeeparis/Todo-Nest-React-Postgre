@@ -10,10 +10,11 @@ interface UserAttributes {
     password: string;
 }
 
-type UserSO = {
+export type UserSO = {
     id: number;
     email: string;
     roles: Role[];
+    posts: Post[];
 }
 
 @Table({ tableName: 'users' })
@@ -37,8 +38,8 @@ export class User extends Model<User, UserAttributes> {
     posts: Post[]
     
     sanitizeData(): UserSO {
-        const { id, email, roles } = this
-        const responseObj = { id, email, roles }
+        const { id, email, roles, posts } = this
+        const responseObj = { id, email, roles, posts }
         return responseObj
     }
 }

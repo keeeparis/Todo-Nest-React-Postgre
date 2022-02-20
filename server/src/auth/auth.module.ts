@@ -16,7 +16,7 @@ dotenv.config({ path: `.${process.env.NODE_ENV}.env` })
     JwtModule.register({
       secret: process.env.PRIVATE_KEY,
       signOptions: {
-        expiresIn: '5min'
+        expiresIn: '30min'
       }
     })
   ],

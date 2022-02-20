@@ -4,16 +4,27 @@ export interface User {
     id: number;
     email: string;
     password: string;
-    posts: Post[];
+    posts: PostReceived[];
     roles: Role[];
     createdAt: string;
     updatedAt: string;
 }
 
 export interface Post {
-    // id: number;
+    userId: number;
     title: string;
     content: string;
+}
+
+export interface PostReceived {
+    id: number;
+    email: string;
+    userId: number;
+    title: string;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+    image: string | null
 }
 
 export interface Role {
@@ -28,7 +39,7 @@ export interface UserCreds {
 }
 
 export interface authIS {
-    currentUser: string | null | User,
+    currentUser:  null | User,
     error: string | null,
     isLoading: boolean
 }

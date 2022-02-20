@@ -1,40 +1,31 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import { logOut } from "../redux/features/auth/authSlice"
-import { User } from "../types"
+import { useEffect} from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchPostsRedux, getErrorPost, getIsLoadingPost, selectPostIds } from "../redux/features/post/postSlice"
+import PostItem from '../containers/PostItem/PostItem'
 
-//FIXME: demo
 export default function Feed() {
-    const [users, setUsers] = useState<User[]>([])
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    const isLoading = useSelector(getIsLoadingPost)
+    const error = useSelector(getErrorPost)
+
+    const postsId = useSelector(selectPostIds)
+
     useEffect(() => {
-        async function getData() {
-            try {
-                const res = await axios.get('/api/users', { 
-                    withCredentials: true,
-                })
-                setUsers(res.data)
-            } catch (e) {
-                dispatch(logOut())
-                navigate('/login')
-            }
-        }
-        getData()
-    }, [navigate, dispatch])
+        dispatch(fetchPostsRedux())
+    }, [dispatch])
     
     return (
-        <>
-            <div>Feed</div>
-            {users.map(user =>
-                <div key={user.id}>
-                    {user.email}
-                </div>
-            )}
-            <div className="allPosts"></div>
-        </>
+        <div className='feed'>
+            {isLoading 
+            ?   <p>Loading ...</p>
+            :   !error.message 
+                ?   postsId.map(postId =>
+                        <PostItem key={postId} postId={postId} />
+                    )
+                : ''
+                
+            }
+        </div>
     )
 }
