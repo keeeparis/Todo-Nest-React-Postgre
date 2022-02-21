@@ -1,24 +1,28 @@
 import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { getCurrentUser } from '../../redux/features/auth/authSlice'
+import { selectPostsByUser } from '../../redux/features/post/postSlice'
+import { RootState } from '../../redux/store/store'
+import PostItem from '../PostItem/PostItem'
 import classes from './UserPosts.module.scss'
 
-const UserPosts = () => { // FIXME:
+export type ParamsEmailType = {
+    userId: string
+}
+
+const UserPosts = () => {
     const currentUser = useSelector(getCurrentUser)
-    let postTitles
-    if (currentUser) {
-        const copyArr = [...currentUser?.posts]
-        const sortedPosts = copyArr.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-        
-        postTitles = sortedPosts?.map(post => (
-            <li key={post.id}>
-                {post.title}
-            </li>
-        ))
-    }
+    const { userId } = useParams() as ParamsEmailType
+      
+    const postsByUser = useSelector((state: RootState) => selectPostsByUser(state, Number(userId)))
+    const postTitles = postsByUser.map(post => (
+        <PostItem key={post.id} postId={post.id} />
+    ))
+
     return (
         <div className={classes.container}>
-            <h2>{currentUser?.email}</h2>
-            <ul>{postTitles}</ul>
+            <h2>{userId}</h2>
+            <div>{postTitles}</div>
         </div>
     )
 }

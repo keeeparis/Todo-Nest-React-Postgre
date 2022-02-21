@@ -68,7 +68,6 @@ export const fetchPostsRedux = createAsyncThunk(
 )
 
 export const selectPostsByUser = createSelector(
-    selectAllPosts,
-    (state: RootState, userId: number | string) => userId,
+    [selectAllPosts, (state: RootState, userId: number) => userId],
     (posts, userId) => posts.filter((post) => post.userId === userId)
 )

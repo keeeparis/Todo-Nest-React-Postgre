@@ -3,10 +3,12 @@ import Button from "../components/button/Button"
 import FormPost from "../components/form-post/FormPost"
 import Input from '../components/input-post/Input'
 import { Post } from "../types"
-import UserPosts from '../containers/UserPosts/UserPosts'
+import UserPosts, { ParamsEmailType } from '../containers/UserPosts/UserPosts'
 import { useDispatch, useSelector } from "react-redux"
 import { addNewPostRedux } from "../redux/features/post/postSlice"
 import { getCurrentUser } from "../redux/features/auth/authSlice"
+import { useParams } from "react-router-dom"
+import Textarea from '../components/textarea/Textarea'
 
 const Account = () => {
     const { 
@@ -17,6 +19,7 @@ const Account = () => {
     } = useForm<Post>()
 
     const dispatch = useDispatch()
+    const { userId } = useParams() as ParamsEmailType
 
     const currentUser = useSelector(getCurrentUser)
 
@@ -29,25 +32,26 @@ const Account = () => {
 
     return (
         <div className="account">
-            <FormPost onSubmit={handleSubmit(onSubmit)}>
-                <Input 
-                    type="text"
-                    label="title"
-                    register={register}
-                    control={control}
-                    required
-                />
-                {errors.title && <p>Укажите заголовок.</p>}
-                <Input 
-                    type="textarea"
-                    label="content"
-                    register={register}
-                    control={control}
-                    required
-                />
-                {errors.content && <p>Укажите текст поста.</p>}
-                <Button type='submit'>Написать</Button>
-            </FormPost>
+            {currentUser && currentUser.id === Number(userId) &&
+                <FormPost onSubmit={handleSubmit(onSubmit)}>
+                    <Input 
+                        type="text"
+                        label="title"
+                        register={register}
+                        control={control}
+                        required
+                    />
+                    {errors.title && <p>Укажите заголовок.</p>}
+                    <Textarea 
+                        label="content"
+                        register={register}
+                        control={control}
+                        required
+                    />
+                    {errors.content && <p>Укажите текст поста.</p>}
+                    <Button type='submit'>Написать</Button>
+                </FormPost>
+            }
             <UserPosts />
         </div>
     )

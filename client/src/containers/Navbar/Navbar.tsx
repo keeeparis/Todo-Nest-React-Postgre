@@ -22,7 +22,7 @@ export default function Navbar() {
                     {currentUser &&
                         <>
                             <Link to='feed'>Feed</Link>
-                            <Link to='account'>Account</Link>
+                            <Link to={`account/${currentUser.id}`}>Account({currentUser.email})</Link>
                         </>
                     }
                 </div>

@@ -5,6 +5,7 @@ import { RootState } from '../../redux/store/store'
 import { selectPostById } from '../../redux/features/post/postSlice'
 import classes from './PostItem.module.scss'
 import { TimeAgo } from '../../components/timeago/TimeAgo'
+import { Link } from 'react-router-dom'
 
 export default function PostItem ({ postId }: { postId: EntityId}) {
     const post = useSelector((state: RootState) => selectPostById(state, postId))
@@ -16,7 +17,7 @@ export default function PostItem ({ postId }: { postId: EntityId}) {
         <div className={classes.container}>
             <p>{post.title}</p> 
             <p>{post.content}</p>
-            <p>by {post.email}{<TimeAgo timestamp={post.createdAt} />}</p>
+            <p>by {<Link to={`/account/${post.userId}`} >{post.email}</Link>} {<TimeAgo timestamp={post.createdAt} />}</p>
         </div>
     )
 }
