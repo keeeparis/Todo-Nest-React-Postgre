@@ -1,4 +1,3 @@
-import React from 'react'
 import { EntityId } from "@reduxjs/toolkit"
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store/store'
@@ -10,21 +9,21 @@ import Button from '../../components/button/Button'
 import { getCurrentUser } from '../../redux/features/auth/authSlice'
 import { converLongContentShort } from '../../utils'
 
-export default function PostItem ({ postId, excerpt }: { postId: EntityId, excerpt?: boolean}) {
+export default function PostItem ({ postId, excerpt }: { postId: EntityId, excerpt?: boolean }) {
     const dispatch = useDispatch()
+
     const post = useSelector((state: RootState) => selectPostById(state, postId))
     const currentUser = useSelector(getCurrentUser)
-
-    const isMyOwnPost = post && currentUser && currentUser.id === post.userId
-
+    
     const handleDeletePost = () => {
         dispatch(deletePostRedux(postId))
     }
-
+    
     if (!post) {
         return null
     }
 
+    const isMyOwnPost = post && !!currentUser && currentUser.id === post.userId
     const showExcerptOrFullContent = excerpt ? converLongContentShort(post.content) : post.content
 
     return (

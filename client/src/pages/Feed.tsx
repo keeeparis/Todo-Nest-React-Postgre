@@ -5,7 +5,6 @@ import PostItem from '../containers/PostItem/PostItem'
 export default function Feed() {
     const isLoading = useSelector(getIsLoadingPost)
     const error = useSelector(getErrorPost)
-
     const postsId = useSelector(selectPostIds)
    
     return (

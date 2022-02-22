@@ -22,9 +22,9 @@ const Account = () => {
 
     const dispatch = useDispatch()
     const { userId } = useParams() as ParamsEmailType
-
     const currentUser = useSelector(getCurrentUser)
-    const isInMyAccount = currentUser && currentUser.id === Number(userId)
+    
+    const isInMyAccount = !!currentUser && currentUser.id === Number(userId)
 
     const onSubmit = (data: Post) => {
         if (currentUser) {
@@ -62,7 +62,7 @@ const Account = () => {
                     <Button type='submit'>Написать</Button>
                 </FormPost>
             }
-            <UserPosts />
+            <UserPosts isInMyAccount={isInMyAccount} />
         </div>
     )
 }

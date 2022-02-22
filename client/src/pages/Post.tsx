@@ -6,7 +6,7 @@ import { selectPostById } from '../redux/features/post/postSlice'
 import { RootState } from '../redux/store/store'
 
 const Post = () => {
-    const params = useParams() as {postId: string}
+    const params = useParams() as { postId: string }
     const post = useSelector((state: RootState) => selectPostById(state, params.postId))
 
     if (!post) {

@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { selectPostsByUser } from '../../redux/features/post/postSlice'
@@ -9,18 +10,20 @@ export type ParamsEmailType = {
     userId: string
 }
 
-const UserPosts = () => {
+const UserPosts: FC<{isInMyAccount: boolean}> = ({ isInMyAccount }) => {
     const { userId } = useParams() as ParamsEmailType
       
     const postsByUser = useSelector((state: RootState) => selectPostsByUser(state, Number(userId)))
-    const postTitles = postsByUser.map(post => (
+    const posts = postsByUser.map(post => (
         <PostItem key={post.id} postId={post.id} excerpt={true}/>
     ))
 
+    const whosePage = isInMyAccount ? 'My Posts' : `${userId}'s posts`
+
     return (
         <div className={classes.container}>
-            <h2>My Posts</h2>
-            <div>{postTitles}</div>
+            <h2>{whosePage}</h2>
+            <div>{posts}</div>
         </div>
     )
 }
