@@ -10,8 +10,9 @@ export class PostsService {
     
     async create(dto: createPostDto) {
         try {
-            const post = await this.postRepository.create(dto)
-            return post
+            const candidatePost = await this.postRepository.create(dto)
+            const post = await this.postRepository.findByPk(candidatePost.id, { include: { all: true } })
+            return post.sanitizeData()
         } catch (e) {
             throw new HttpException('Ошибка при записи поста', HttpStatus.BAD_REQUEST)
         }
@@ -24,6 +25,15 @@ export class PostsService {
             return sanitizedPosts
         } catch (e) {
             throw new HttpException('Ошибка при получении постов', HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
+
+    async delete(postId: number) {
+        try {
+            await this.postRepository.destroy({ where: { id: postId }})
+            return postId
+        } catch (e) {
+            throw new HttpException('Невозможно удалить выбраный пост', HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 }
