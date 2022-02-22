@@ -12,12 +12,10 @@ export default function Feed() {
         <div className='feed'>
             {isLoading 
             ?   <p>Loading ...</p>
-            :   !error.message 
-                ?   postsId.map(postId =>
-                        <PostItem key={postId} postId={postId} />
+            :   !error.message &&
+                    postsId.map(postId =>
+                        <PostItem key={postId} postId={postId} excerpt={true} />
                     )
-                : ''
-                
             }
         </div>
     )

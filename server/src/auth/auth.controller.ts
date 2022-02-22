@@ -29,7 +29,7 @@ export class AuthController {
         return res.send(user)
     }
 
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
     @Get('/logout')
     logout(@Res() res: Response) {
         res.clearCookie('auth')

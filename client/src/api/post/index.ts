@@ -1,3 +1,4 @@
+import { EntityId } from "@reduxjs/toolkit"
 import axios from "axios"
 import { Post } from "../../types"
 import { handleError } from "../auth"
@@ -11,8 +12,13 @@ export const addNewPost = async (data: Post) => {
     }
 }
 
-export const removePost = () => {
-
+export const deletePost = async (data: EntityId) => {
+    try {
+        const response = await axios.delete('/api/posts', { data: { postId: data} })
+        return response
+    } catch (e) {
+        throw handleError(e)
+    }
 }
 
 export const editPost = () => {

@@ -5,7 +5,7 @@ import { RootState } from "../../store/store";
 
 const initialState: authIS = {
     currentUser: null,
-    error: null,
+    error: { message: '' },
     isLoading: true
 }
 
@@ -16,41 +16,41 @@ const authSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(registerRedux.pending, (state, payload) => {
-                state.error = null
+                state.error.message = ''
                 state.isLoading = true
             })
-            .addCase(registerRedux.fulfilled, (state, action: any) => {
+            .addCase(registerRedux.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.currentUser = action.payload
             })
-            .addCase(registerRedux.rejected, (state, action: any) => {
+            .addCase(registerRedux.rejected, (state, action) => {
                 state.isLoading = false
-                state.error = action.payload // TODO: одинаковый вывод ошибок с сервера
+                state.error.message = action.error.message 
             })
             .addCase(loginRedux.pending, (state, action) => {
-                state.error = null
+                state.error.message = ''
                 state.isLoading = true
             })
             .addCase(loginRedux.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.currentUser = action.payload
             })
-            .addCase(loginRedux.rejected, (state, action: any) => {
+            .addCase(loginRedux.rejected, (state, action) => {
                 state.isLoading = false
-                state.error = action.payload // TODO: одинаковый вывод ошибок с сервера
+                state.error.message = action.error.message 
             })
             .addCase(getProfileRedux.pending, (state, action) => {
-                state.error = null
+                state.error.message = ''
                 state.isLoading = true
             })
-            .addCase(getProfileRedux.fulfilled, (state, action: any) => {
+            .addCase(getProfileRedux.fulfilled, (state, action) => {
                 state.isLoading = false
-                state.error = null
+                state.error.message = ''
                 state.currentUser = action.payload
             })
-            .addCase(getProfileRedux.rejected, (state, action: any) => {
+            .addCase(getProfileRedux.rejected, (state, action) => {
                 state.isLoading = false
-                state.error = action.error.message // TODO: одинаковый вывод ошибок с сервера
+                state.error.message = action.error.message
             })
             .addCase(logoutRedux.fulfilled, (state, action) => {
                 state.currentUser = null
@@ -69,27 +69,19 @@ export const getIsLoading = (state: RootState) => state.auth.isLoading
 
 export const registerRedux = createAsyncThunk(
     'auth/register',
-    async (creds: UserCreds, { rejectWithValue }) => {
-        try {
-            const response = await registerUser(creds)
-            const { data } = response
-            return data
-        } catch (e) {
-            return rejectWithValue(e) 
-        }
+    async (creds: UserCreds) => {
+        const response = await registerUser(creds)
+        const { data } = response
+        return data
     }
 )
 
 export const loginRedux = createAsyncThunk(
     'auth/login',
-    async (creds: UserCreds, { rejectWithValue }) => {
-        try {
-            const response = await loginUser(creds)
-            const { data } = response
-            return data
-        } catch (e) {
-            return rejectWithValue(e) 
-        }
+    async (creds: UserCreds) => {
+        const response = await loginUser(creds)
+        const { data } = response
+        return data
     }
 )
 

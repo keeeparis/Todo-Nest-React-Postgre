@@ -1,23 +1,43 @@
 import React from 'react'
 import { EntityId } from "@reduxjs/toolkit"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store/store'
-import { selectPostById } from '../../redux/features/post/postSlice'
+import { deletePostRedux, selectPostById } from '../../redux/features/post/postSlice'
 import classes from './PostItem.module.scss'
 import { TimeAgo } from '../../components/timeago/TimeAgo'
 import { Link } from 'react-router-dom'
+import Button from '../../components/button/Button'
+import { getCurrentUser } from '../../redux/features/auth/authSlice'
+import { converLongContentShort } from '../../utils'
 
-export default function PostItem ({ postId }: { postId: EntityId}) {
+export default function PostItem ({ postId, excerpt }: { postId: EntityId, excerpt?: boolean}) {
+    const dispatch = useDispatch()
     const post = useSelector((state: RootState) => selectPostById(state, postId))
+    const currentUser = useSelector(getCurrentUser)
+
+    const isMyOwnPost = post && currentUser && currentUser.id === post.userId
+
+    const handleDeletePost = () => {
+        dispatch(deletePostRedux(postId))
+    }
+
     if (!post) {
         return null
     }
 
+    const showExcerptOrFullContent = excerpt ? converLongContentShort(post.content) : post.content
+
     return (
         <div className={classes.container}>
-            <p>{post.title}</p> 
-            <p>{post.content}</p>
-            <p>by {<Link to={`/account/${post.userId}`} >{post.email}</Link>} {<TimeAgo timestamp={post.createdAt} />}</p>
+            <Link to={`/feed/${postId}`}>{post.title}</Link>
+            <p>{showExcerptOrFullContent}</p>
+            <p>by {
+                <Link to={`/account/${post.userId}`} >
+                    {isMyOwnPost ? 'me' : post.email}
+                </Link>
+                }{<TimeAgo timestamp={post.createdAt} />}
+            </p>
+            {isMyOwnPost && <Button onClick={handleDeletePost} >X</Button>}
         </div>
     )
 }

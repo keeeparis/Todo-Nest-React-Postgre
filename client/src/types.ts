@@ -1,3 +1,4 @@
+import { SerializedError } from '@reduxjs/toolkit'
 import { Control, Path, UseFormRegister } from 'react-hook-form'
 
 export interface User {
@@ -40,7 +41,7 @@ export interface UserCreds {
 
 export interface authIS {
     currentUser:  null | User,
-    error: string | null,
+    error: SerializedError,
     isLoading: boolean
 }
 
@@ -60,6 +61,8 @@ export type InputPostProps = {
     register: UseFormRegister<Post>,
     required: boolean,
     pattern?: RegExp,
+    minLength?: number,
+    maxLength?: number,
     type?: string,
     control: Control<Post, object>
 }

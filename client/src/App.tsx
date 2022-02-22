@@ -4,6 +4,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Feed from './pages/Feed'
+import Post from './pages/Post'
 import Account from './pages/Account'
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -37,10 +38,10 @@ export default function App() {
                     path='account/:userId' 
                     element={<PrivateRoute element={Account} />}
                 />
-                <Route 
-                    path='feed' 
-                    element={<PrivateRoute element={Feed} />}
-                />
+                <Route path='feed'>
+                    <Route index element={<PrivateRoute element={Feed} />}/>
+                    <Route path=':postId' element={<PrivateRoute element={Post} />} />
+                </Route>
             </Route>
         </Routes>
     );

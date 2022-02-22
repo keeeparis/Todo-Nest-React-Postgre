@@ -5,4 +5,16 @@
     padding: 15px;
     display: flex;
     flex-direction: column;
+    position: relative;
+
+    button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 30px;
+        padding: 5px;
+        margin: 5px;
+        height: 30px;
+        font-size: 10px;
+    }
 }

@@ -1,5 +1,5 @@
-import { createAsyncThunk, createEntityAdapter, createSelector, createSlice, SerializedError } from "@reduxjs/toolkit";
-import { addNewPost, fetchPosts } from "../../../api/post";
+import { createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityId, SerializedError } from "@reduxjs/toolkit";
+import { addNewPost, deletePost, fetchPosts } from "../../../api/post";
 import { Post, PostReceived } from "../../../types";
 import { RootState } from "../../store/store";
 
@@ -37,6 +37,9 @@ const postSlice = createSlice({
             state.isLoading = false
             state.error.message = action.error.message
         })
+        builder.addCase(deletePostRedux.fulfilled, (state, action) => {
+            postAdapter.removeOne(state, action.payload)
+        })
     }
 })
 
@@ -55,6 +58,14 @@ export const addNewPostRedux = createAsyncThunk(
     'post/addNewPost',
     async (data: Post) => {
         const response = await addNewPost(data)
+        return response.data
+    }
+)
+
+export const deletePostRedux = createAsyncThunk(
+    'post/deletePost',
+    async (data: EntityId) => {
+        const response = await deletePost(data)
         return response.data
     }
 )

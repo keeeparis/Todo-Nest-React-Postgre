@@ -9,19 +9,22 @@ import { addNewPostRedux } from "../redux/features/post/postSlice"
 import { getCurrentUser } from "../redux/features/auth/authSlice"
 import { useParams } from "react-router-dom"
 import Textarea from '../components/textarea/Textarea'
+import { useEffect } from "react"
 
 const Account = () => {
     const { 
         register, 
         handleSubmit, 
-        formState: { errors },
-        control 
+        formState: { errors, isSubmitSuccessful },
+        control,
+        reset
     } = useForm<Post>()
 
     const dispatch = useDispatch()
     const { userId } = useParams() as ParamsEmailType
 
     const currentUser = useSelector(getCurrentUser)
+    const isInMyAccount = currentUser && currentUser.id === Number(userId)
 
     const onSubmit = (data: Post) => {
         if (currentUser) {
@@ -30,9 +33,15 @@ const Account = () => {
         }
     }
 
+    useEffect(() => {
+        if (isSubmitSuccessful) {
+            reset()
+        }
+    }, [isSubmitSuccessful, reset])
+
     return (
         <div className="account">
-            {currentUser && currentUser.id === Number(userId) &&
+            {isInMyAccount &&
                 <FormPost onSubmit={handleSubmit(onSubmit)}>
                     <Input 
                         type="text"
@@ -47,8 +56,9 @@ const Account = () => {
                         register={register}
                         control={control}
                         required
+                        maxLength={250}
                     />
-                    {errors.content && <p>Укажите текст поста.</p>}
+                    {errors.content && <p>Укажите текст поста не больше 250 символов.</p>}
                     <Button type='submit'>Написать</Button>
                 </FormPost>
             }
