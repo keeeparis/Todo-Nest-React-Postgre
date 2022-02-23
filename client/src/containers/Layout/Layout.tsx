@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom'
-import Navbar from '../Navbar/Navbar'
+
 import PopUp from '../../components/popup/PopUp'
 import classes from './Layout.module.scss'
+import Navbar from '../Navbar/Navbar'
 
 export default function Layout() {
     return (

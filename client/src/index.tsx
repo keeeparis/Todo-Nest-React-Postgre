@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import 'antd/dist/antd.min.css'
-import './styles/index.scss'
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom'
+import reportWebVitals from './reportWebVitals';
+
+import './styles/index.scss'
+import 'antd/dist/antd.min.css'
+
+import App from './App';
 import { store } from './redux/store/store'
 
 ReactDOM.render(

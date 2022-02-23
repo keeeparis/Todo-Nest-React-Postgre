@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 import { getProfile, loginUser, logoutUser, registerUser } from "../../../api/auth";
 import { authIS, UserCreds } from "../../../types";
 import { RootState } from "../../store/store";

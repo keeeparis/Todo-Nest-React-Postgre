@@ -1,8 +1,9 @@
-import { message } from 'antd'
-import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { getError } from '../../redux/features/auth/authSlice'
+import { useEffect } from 'react'
+import { message } from 'antd'
+
 import { getErrorPost } from '../../redux/features/post/postSlice'
+import { getError } from '../../redux/features/auth/authSlice'
 
 const PopUp = () => {
     const error = useSelector(getError)

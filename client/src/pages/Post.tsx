@@ -1,7 +1,8 @@
-import React from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+
 import PostItem from '../containers/PostItem/PostItem'
+
 import { selectPostById } from '../redux/features/post/postSlice'
 import { RootState } from '../redux/store/store'
 

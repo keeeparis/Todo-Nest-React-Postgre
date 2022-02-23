@@ -1,12 +1,14 @@
-import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { registerRedux } from '../redux/features/auth/authSlice'
-import { UserCreds } from '../types'
+import { useDispatch } from 'react-redux'
+import { useForm } from 'react-hook-form'
+
 import FormRegister from '../components/form-register/FormRegister'
 import Button from '../components/button/Button'
 import Input from '../components/input-auth/Input'
-import { useForm } from 'react-hook-form'
+
+import { registerRedux } from '../redux/features/auth/authSlice'
 import { AppDispatch } from '../redux/store/store'
+import { UserCreds } from '../types'
 
 export default function Register() {
     const dispatch: AppDispatch = useDispatch()

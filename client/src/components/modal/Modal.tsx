@@ -1,6 +1,7 @@
 import { FC } from 'react'
-import classes from './Modal.module.scss'
 import cn from 'classnames'
+
+import classes from './Modal.module.scss'
 import Button from '../button/Button'
 
 interface ModalProps {

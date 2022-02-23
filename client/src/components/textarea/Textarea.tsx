@@ -1,6 +1,8 @@
 import { useController } from 'react-hook-form'
-import classes from './Textarea.module.scss'
 import cn from 'classnames'
+
+import classes from './Textarea.module.scss'
+
 import { toCapitalFirstLetter } from '../../utils'
 import { InputPostProps } from '../../types'
 

@@ -1,8 +1,10 @@
 import { useController } from 'react-hook-form'
-import { InputProps } from '../../types'
-import classes from './Input.module.scss'
 import cn from 'classnames'
+
+import classes from './Input.module.scss'
+
 import { toCapitalFirstLetter } from '../../utils'
+import { InputProps } from '../../types'
 
 const Input = ({ label, register, required, pattern, minLength, maxLength, type, control }: InputProps) => {
     const { fieldState } = useController({

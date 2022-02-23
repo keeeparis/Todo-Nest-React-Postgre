@@ -1,16 +1,17 @@
-import { EntityId } from "@reduxjs/toolkit"
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../redux/store/store'
-import { deletePostRedux, selectPostById } from '../../redux/features/post/postSlice'
-import classes from './PostItem.module.scss'
-import { TimeAgo } from '../../components/timeago/TimeAgo'
+import { EntityId } from "@reduxjs/toolkit"
 import { Link } from 'react-router-dom'
-import Button from '../../components/button/Button'
-import { getCurrentUser } from '../../redux/features/auth/authSlice'
-import { converLongContentShort } from '../../utils'
-// import { Modal } from "antd"
-import Modal from '../../components/modal/Modal'
 import { useState } from "react"
+
+import Button from '../../components/button/Button'
+import Modal from '../../components/modal/Modal'
+import classes from './PostItem.module.scss'
+
+import { deletePostRedux, selectPostById } from '../../redux/features/post/postSlice'
+import { getCurrentUser } from '../../redux/features/auth/authSlice'
+import { TimeAgo } from '../../components/timeago/TimeAgo'
+import { converLongContentShort } from '../../utils'
+import { RootState } from '../../redux/store/store'
 
 export default function PostItem ({ postId, excerpt }: { postId: EntityId, excerpt?: boolean }) {
     const [isModalVisible, setIsModalVisible] = useState(false)

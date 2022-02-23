@@ -1,4 +1,7 @@
+import { useEffect } from "react"
 import { Route, Routes } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+
 import Layout from './containers/Layout/Layout'
 import Register from './pages/Register'
 import Login from './pages/Login'
@@ -6,12 +9,10 @@ import Home from './pages/Home'
 import Feed from './pages/Feed'
 import Post from './pages/Post'
 import Account from './pages/Account'
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { getCurrentUser, getProfileRedux } from "./redux/features/auth/authSlice"
-import { PrivateRoute } from './components/privateroute/PrivateRoute'
-import { fetchPostsRedux } from "./redux/features/post/postSlice"
 
+import { PrivateRoute } from './components/privateroute/PrivateRoute'
+import { getCurrentUser, getProfileRedux } from "./redux/features/auth/authSlice"
+import { fetchPostsRedux } from "./redux/features/post/postSlice"
 
 export default function App() {
     const dispatch = useDispatch()

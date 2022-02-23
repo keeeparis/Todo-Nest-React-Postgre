@@ -1,4 +1,5 @@
-import React, { ButtonHTMLAttributes, FC } from 'react'
+import { ButtonHTMLAttributes, FC } from 'react'
+
 import classes from './Button.module.scss'
 
 const Button: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({children, ...props}) => {

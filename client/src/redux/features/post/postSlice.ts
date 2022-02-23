@@ -1,4 +1,5 @@
 import { createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityId, SerializedError } from "@reduxjs/toolkit";
+
 import { addNewPost, deletePost, fetchPosts } from "../../../api/post";
 import { Post, PostReceived } from "../../../types";
 import { RootState } from "../../store/store";

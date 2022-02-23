@@ -1,5 +1,6 @@
-import { useSelector } from "react-redux"
 import { Navigate } from "react-router-dom"
+import { useSelector } from "react-redux"
+
 import { getCurrentUser, getIsLoading } from "../../redux/features/auth/authSlice"
 
 interface Props {

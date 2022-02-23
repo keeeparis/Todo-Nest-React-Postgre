@@ -1,5 +1,4 @@
 body {
-    // background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
     word-break: break-all;
 }
 
@@ -11,8 +10,4 @@ body {
 .account {
     display: flex;
     flex-direction: column;
-
-    // & > * {
-    //     flex: 1 0 auto;
-    // }
 }

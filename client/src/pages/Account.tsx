@@ -1,15 +1,17 @@
-import { useForm } from "react-hook-form"
-import Button from "../components/button/Button"
-import FormPost from "../components/form-post/FormPost"
-import Input from '../components/input-post/Input'
-import { Post } from "../types"
-import UserPosts, { ParamsEmailType } from '../containers/UserPosts/UserPosts'
+import { useNavigate, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
+import { useForm } from "react-hook-form"
+import { useEffect } from "react"
+
+import FormPost from "../components/form-post/FormPost"
+import Textarea from '../components/textarea/Textarea'
+import Input from '../components/input-post/Input'
+import Button from "../components/button/Button"
+import UserPosts, { ParamsEmailType } from '../containers/UserPosts/UserPosts'
+
 import { addNewPostRedux } from "../redux/features/post/postSlice"
 import { getCurrentUser } from "../redux/features/auth/authSlice"
-import { useNavigate, useParams } from "react-router-dom"
-import Textarea from '../components/textarea/Textarea'
-import { useEffect } from "react"
+import { Post } from "../types"
 
 const Account = () => {
     const { 

@@ -1,10 +1,12 @@
-import { FC } from 'react'
-import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { FC } from 'react'
+
+import classes from './UserPosts.module.scss'
+import PostItem from '../PostItem/PostItem'
+
 import { selectPostsByUser } from '../../redux/features/post/postSlice'
 import { RootState } from '../../redux/store/store'
-import PostItem from '../PostItem/PostItem'
-import classes from './UserPosts.module.scss'
 
 export type ParamsEmailType = {
     userId: string

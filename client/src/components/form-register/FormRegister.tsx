@@ -1,4 +1,5 @@
 import { FC, FormEventHandler, ReactNode } from "react";
+
 import classes from './FormRegister.module.scss'
 
 interface FormRegisterProps {
