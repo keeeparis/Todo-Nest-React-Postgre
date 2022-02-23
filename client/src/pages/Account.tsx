@@ -7,7 +7,7 @@ import UserPosts, { ParamsEmailType } from '../containers/UserPosts/UserPosts'
 import { useDispatch, useSelector } from "react-redux"
 import { addNewPostRedux } from "../redux/features/post/postSlice"
 import { getCurrentUser } from "../redux/features/auth/authSlice"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Textarea from '../components/textarea/Textarea'
 import { useEffect } from "react"
 
@@ -21,6 +21,7 @@ const Account = () => {
     } = useForm<Post>()
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { userId } = useParams() as ParamsEmailType
     const currentUser = useSelector(getCurrentUser)
     
@@ -41,8 +42,10 @@ const Account = () => {
 
     return (
         <div className="account">
+            <Button onClick={() => navigate(-1)}>Go back</Button> {/* TODO: navigate to back? */}
             {isInMyAccount &&
                 <FormPost onSubmit={handleSubmit(onSubmit)}>
+                    <h1>Написать</h1>
                     <Input 
                         type="text"
                         label="title"
@@ -59,7 +62,7 @@ const Account = () => {
                         maxLength={250}
                     />
                     {errors.content && <p>Укажите текст поста не больше 250 символов.</p>}
-                    <Button type='submit'>Написать</Button>
+                    <Button type='submit'>Опубликовать</Button>
                 </FormPost>
             }
             <UserPosts isInMyAccount={isInMyAccount} />

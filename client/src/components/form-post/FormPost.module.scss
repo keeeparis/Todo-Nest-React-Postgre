@@ -1,13 +1,17 @@
 .form {
-    margin: 20vh auto 0 auto;
-    padding: 20px;
-    background-color: whitesmoke;
-    border-radius: 4px;
+    padding: 0 0 20px 0;
+    // background-color: whitesmoke;
     font-size: 12px;
     align-self: flex-start;
+    width: 500px;
+    // outline: 1px solid lightgray;
 
     h1 {
         color: #0f2027;
-        text-align: center;
+    }
+
+    button {
+        width: 150px;
+        margin-left: calc(100% - 150px);
     }
 }

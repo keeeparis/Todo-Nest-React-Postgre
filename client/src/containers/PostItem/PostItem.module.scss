@@ -1,20 +1,32 @@
 .container {
-    width: 400px;
-    background-color: aliceblue;
-    margin-bottom: 30px;
+    width: 500px;
+    outline: 1px solid lightgray;
+    margin-top: 1px;
+    height: 150px;
     padding: 15px;
     display: flex;
     flex-direction: column;
     position: relative;
+}
 
-    button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 30px;
-        padding: 5px;
-        margin: 5px;
-        height: 30px;
-        font-size: 10px;
-    }
+div.close button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    padding: 0;
+    margin: 5px;
+    height: 20px;
+    font-size: 10px;
+    background-color: white;
+    color: black;
+}
+
+.link {
+    padding-bottom: 5px;
+    font-size: 1.2em;
+}
+
+.flex {
+    flex-grow: 1;
 }

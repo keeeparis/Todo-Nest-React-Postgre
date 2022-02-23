@@ -15,10 +15,10 @@ export default function Navbar() {
     }
 
     return (
-        <>
+        <div className={classes.container}>
             <nav className={classes.nav}>
                 <div>
-                    <Link to='/'>Home</Link>
+                    <Link to='/' className={classes.bold}>Home</Link>
                     {currentUser &&
                         <>
                             <Link to='feed'>Feed</Link>
@@ -37,6 +37,6 @@ export default function Navbar() {
                     }
                 </div>
             </nav>
-        </>
+        </div>
     )
 }
