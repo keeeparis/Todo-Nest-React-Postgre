@@ -21,11 +21,12 @@ const UserPosts: FC<{isInMyAccount: boolean}> = ({ isInMyAccount }) => {
     ))
 
     const whosePage = isInMyAccount ? 'My Posts' : `${userId}'s posts`
+    const isPosts = posts.length ? posts : 'No Posts yet. :('
 
     return (
         <div className={classes.container}>
             <h2>{whosePage}</h2>
-            <div>{posts}</div>
+            <div>{isPosts}</div>
         </div>
     )
 }

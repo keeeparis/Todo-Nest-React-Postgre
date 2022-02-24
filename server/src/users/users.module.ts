@@ -9,12 +9,13 @@ import { AuthModule } from 'src/auth/auth.module';
 
 import { Post } from 'src/posts/posts.model';
 import { User } from './users.model';
+import { Like } from 'src/likes/likes.model';
 
 @Module({
     controllers: [UsersController],
     providers: [UsersService],
     imports: [
-        SequelizeModule.forFeature([User, Post]),
+        SequelizeModule.forFeature([User, Post, Like]),
         AuthModule,
         RolesModule
     ],

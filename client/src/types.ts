@@ -1,4 +1,4 @@
-import { SerializedError } from '@reduxjs/toolkit'
+import { EntityId, SerializedError } from '@reduxjs/toolkit'
 import { Control, Path, UseFormRegister } from 'react-hook-form'
 
 export interface User {
@@ -17,6 +17,13 @@ export interface Post {
     content: string;
 }
 
+export type Like = {
+    id: number;
+    postId: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
 export interface PostReceived {
     id: number;
     email: string;
@@ -25,7 +32,8 @@ export interface PostReceived {
     content: string;
     createdAt: string;
     updatedAt: string;
-    image: string | null
+    image: string | null,
+    likes: Like[]
 }
 
 export interface Role {
@@ -65,4 +73,14 @@ export type InputPostProps = {
     maxLength?: number,
     type?: string,
     control: Control<Post, object>
+}
+
+export interface LikeProps {
+    handleLikeButton: () => void;
+    post: PostReceived
+}
+
+export interface addLikeProps {
+    postId: EntityId,
+    userId: number
 }

@@ -2,6 +2,45 @@ body {
     word-break: break-all;
 }
 
+.home {
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 20px);
+    flex-direction: column;
+    width: fit-content;
+
+    .text {
+        text-align: center;
+    }
+
+    .boxes {
+        display: flex;
+        gap: 15px;
+    }
+
+    .box {
+        width: 400px;
+        height: auto;
+        border: 1px solid lightgray;
+        padding: 40px;
+        background-color: whitesmoke;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        font-size: 18px;
+
+        &:nth-child(2) button{
+            background-color: forestgreen;
+        }
+
+        a {
+            color: white;
+            width: 100%;
+        }
+    }
+}
+
 .feed {
     display: flex;
     flex-direction: column;

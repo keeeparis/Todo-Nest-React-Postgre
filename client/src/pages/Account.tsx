@@ -7,6 +7,7 @@ import FormPost from "../components/form-post/FormPost"
 import Textarea from '../components/textarea/Textarea'
 import Input from '../components/input-post/Input'
 import Button from "../components/button/Button"
+import ButtonBack from '../components/button-navigate-back/ButtonBack'
 import UserPosts, { ParamsEmailType } from '../containers/UserPosts/UserPosts'
 
 import { addNewPostRedux } from "../redux/features/post/postSlice"
@@ -36,6 +37,8 @@ const Account = () => {
         }
     }
 
+    const handleNavigateBack = () => navigate(-1)
+
     useEffect(() => {
         if (isSubmitSuccessful) {
             reset()
@@ -44,7 +47,9 @@ const Account = () => {
 
     return (
         <div className="account">
-            <Button onClick={() => navigate(-1)}>Go back</Button> {/* TODO: navigate to back? */}
+            {!isInMyAccount && 
+                <ButtonBack handleNavigateBack={handleNavigateBack} />
+            }
             {isInMyAccount &&
                 <FormPost onSubmit={handleSubmit(onSubmit)}>
                     <h1>Написать</h1>

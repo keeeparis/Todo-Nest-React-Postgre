@@ -5,9 +5,10 @@ import { useState } from "react"
 
 import Button from '../../components/button/Button'
 import Modal from '../../components/modal/Modal'
+import Like from '../Like/Like'
 import classes from './PostItem.module.scss'
 
-import { deletePostRedux, selectPostById } from '../../redux/features/post/postSlice'
+import { addLikeRedux, deletePostRedux, selectPostById } from '../../redux/features/post/postSlice'
 import { getCurrentUser } from '../../redux/features/auth/authSlice'
 import { TimeAgo } from '../../components/timeago/TimeAgo'
 import { converLongContentShort } from '../../utils'
@@ -32,12 +33,22 @@ export default function PostItem ({ postId, excerpt }: { postId: EntityId, excer
     const handleModalCancel = () => {
         setIsModalVisible(false)
     }
+
+    const handleLikeButton = () => {
+        if (currentUser) {
+            const data = { postId: postId, userId: currentUser.id }
+            dispatch(addLikeRedux(data))
+        }
+    }
     
     if (!post) {
         return null
     }
 
-    const isMyOwnPost = post && !!currentUser && currentUser.id === post.userId
+    const isPostAndCurrentUser = post && !!currentUser
+
+    const isMyOwnPost = isPostAndCurrentUser && currentUser.id === post.userId
+    const isAdmin = isPostAndCurrentUser && currentUser.roles.some(role => role.value === 'ADMIN')
     const showExcerptOrFullContent = excerpt ? converLongContentShort(post.content) : post.content
 
     return (
@@ -54,9 +65,14 @@ export default function PostItem ({ postId, excerpt }: { postId: EntityId, excer
                     <TimeAgo timestamp={post.createdAt} />
                 }
             </p>
+
+            <Like 
+                post={post}
+                handleLikeButton={handleLikeButton} 
+            />
             
             <div className={classes.close}>
-                {isMyOwnPost && <Button onClick={handleButtonClick}>X</Button>}
+                {(isMyOwnPost || isAdmin) && <Button onClick={handleButtonClick}>X</Button>}
             </div>
 
             <Modal 

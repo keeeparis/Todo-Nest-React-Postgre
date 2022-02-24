@@ -1,7 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityId, SerializedError } from "@reduxjs/toolkit";
 
-import { addNewPost, deletePost, fetchPosts } from "../../../api/post";
-import { Post, PostReceived } from "../../../types";
+import { addLike, addNewPost, deletePost, fetchPosts } from "../../../api/post";
+import { addLikeProps, Post, PostReceived } from "../../../types";
 import { RootState } from "../../store/store";
 
 const postAdapter = createEntityAdapter<PostReceived>({
@@ -41,6 +41,10 @@ const postSlice = createSlice({
         builder.addCase(deletePostRedux.fulfilled, (state, action) => {
             postAdapter.removeOne(state, action.payload)
         })
+        builder.addCase(addLikeRedux.fulfilled, (state, action) => {
+            const postId = action.payload[0].postId
+            postAdapter.updateOne(state, { id: postId, changes: { likes: action.payload } })
+        })
     }
 })
 
@@ -75,6 +79,14 @@ export const fetchPostsRedux = createAsyncThunk(
     'post/fetchAllPosts',
     async () => {
         const response = await fetchPosts()
+        return response.data
+    }
+)
+
+export const addLikeRedux = createAsyncThunk(
+    'post/addLike',
+    async (data: addLikeProps) => {
+        const response = await addLike(data)
         return response.data
     }
 )
