@@ -6,13 +6,12 @@ import { User } from 'src/users/users.model';
 import { Post } from './posts.model';
 import { FilesModule } from 'src/files/files.module';
 import { AuthModule } from 'src/auth/auth.module';
-import { Like } from 'src/likes/likes.model';
 
 @Module({
   providers: [PostsService],
   controllers: [PostsController],
   imports: [
-    SequelizeModule.forFeature([User, Post, Like]),
+    SequelizeModule.forFeature([User, Post]),
     FilesModule,
     AuthModule
   ]

@@ -81,6 +81,6 @@ export interface LikeProps {
 }
 
 export interface addLikeProps {
-    postId: EntityId,
+    postId: number,
     userId: number
 }

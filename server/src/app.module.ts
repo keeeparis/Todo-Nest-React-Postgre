@@ -14,9 +14,9 @@ import { UserRoles } from './roles/user-roles.model';
 import { User } from './users/users.model';
 import { Role } from './roles/roles.model';
 import { Post } from './posts/posts.model';
+import { Like } from './likes/likes.model';
 import { FilesModule } from './files/files.module';
 import { LikesModule } from './likes/likes.module';
-import { Like } from './likes/likes.model';
 
 @Module({
     imports: [

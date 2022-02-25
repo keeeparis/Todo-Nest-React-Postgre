@@ -3,8 +3,8 @@ import { Post } from "src/posts/posts.model";
 import { User } from "src/users/users.model";
 
 interface LikeAttributes {
-    usersId: number;
-    postId: number
+    userId: number;
+    postId: number;
 }
 
 @Table({ tableName: 'likes' })
@@ -20,9 +20,15 @@ export class Like extends Model<Like, LikeAttributes> {
     post: Post
 
     // @ForeignKey(() => User)
-    // @Column({ type: DataType.INTEGER})
-    // userId: number
+    // @Column({ type: DataType.INTEGER })
+    // userId: number;
 
-    // @BelongsTo(() => User, 'userId')
-    // user: User
+    // @BelongsTo(() => User)
+    // author: User    
+
+    sanitizeData() {
+        const { id, postId, } = this
+        const responseObj = { id, postId,  }
+        return responseObj
+    }
 }

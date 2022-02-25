@@ -48,6 +48,7 @@ export class AuthService {
                 throw new UnauthorizedException({ message: 'Некорректный email или пароль' })
             }
         } catch (e) {
+            console.log(e)
             throw new UnauthorizedException({ message: 'Некорректный email или пароль' })
         }
     }

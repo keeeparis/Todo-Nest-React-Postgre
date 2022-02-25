@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { BelongsToMany, Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
-import { Like } from "src/likes/likes.model";
 
+import { Like } from "src/likes/likes.model";
 import { Post } from "src/posts/posts.model"
 import { Role } from "src/roles/roles.model";
 import { UserRoles } from "src/roles/user-roles.model";
@@ -16,6 +16,7 @@ export type UserSO = {
     email: string;
     roles: Role[];
     posts?: Post[];
+    likes?: Like[]
 }
 
 @Table({ tableName: 'users' })
@@ -38,13 +39,12 @@ export class User extends Model<User, UserAttributes> {
     @HasMany(() => Post)
     posts: Post[]
     
-    //
-    // @HasMany(() => Like, 'usersId')
+    // @HasMany(() => Like)
     // likes: Like[]
     
     sanitizeData(): UserSO {
-        const { id, email, roles } = this
-        const responseObj = { id, email, roles }
+        const { id, email, roles, } = this
+        const responseObj = { id, email, roles, }
         return responseObj
     }
 }

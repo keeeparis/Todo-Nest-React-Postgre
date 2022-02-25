@@ -36,7 +36,7 @@ export default function PostItem ({ postId, excerpt }: { postId: EntityId, excer
 
     const handleLikeButton = () => {
         if (currentUser) {
-            const data = { postId: postId, userId: currentUser.id }
+            const data = { postId: Number(postId), userId: currentUser.id }
             dispatch(addLikeRedux(data))
         }
     }
