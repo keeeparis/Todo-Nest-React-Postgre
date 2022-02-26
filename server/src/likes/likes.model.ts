@@ -1,6 +1,6 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { Post } from "src/posts/posts.model";
-import { User } from "src/users/users.model";
+// import { User } from "src/users/users.model";
 
 interface LikeAttributes {
     userId: number;
