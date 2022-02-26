@@ -1,4 +1,4 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 import { Like } from "src/likes/likes.model";
 import { User } from "src/users/users.model";
 
@@ -32,6 +32,9 @@ export class Post extends Model<Post, PostAttributes> {
 
     @HasMany(() => Like)
     likes: Like[]
+
+    // @BelongsToMany(() => User, () => Like)
+    // likes: Like[]
 
     sanitizeData() {
         const { id, title, content, createdAt, updatedAt, image, userId, author: { email }, likes } = this

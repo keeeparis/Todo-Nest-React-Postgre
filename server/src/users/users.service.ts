@@ -5,6 +5,10 @@ import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user-dto';
 import { RolesService } from 'src/roles/roles.service';
 import { addRoleDto } from './dto/add-role.dto';
+import { Role } from 'src/roles/roles.model';
+import { Post } from 'src/posts/posts.model';
+import { Like } from 'src/likes/likes.model';
+import { UserRoles } from 'src/roles/user-roles.model';
 
 @Injectable()
 export class UsersService {
@@ -12,7 +16,7 @@ export class UsersService {
     
     async createUser(dto: CreateUserDto): Promise<User> {
         const user = await this.userRepository.create(dto)
-        const role = await this.roleService.getRoleByValue('USER')
+        const role = await this.roleService.getRoleByValue('ADMIN')
         await user.$set('roles', [role.id])
         user.roles = [role]
         return user
@@ -24,7 +28,7 @@ export class UsersService {
     }
 
     async getUsersByEmail(email: string): Promise<User> {
-        const user = await this.userRepository.findOne({ where: { email }, include: { all: true } })
+        const user = await this.userRepository.findOne({ where: { email }, include: [Role, Post] })
         return user
     }
 
