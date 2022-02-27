@@ -39,8 +39,8 @@ export class User extends Model<User, UserAttributes> {
     @HasMany(() => Post, 'userId')
     posts: Post[]
 
-    // @HasMany(() => Like)
-    // likes: Like[]
+    @HasMany(() => Like)
+    likes: Like[]
 
     // @ForeignKey(() => Like)
     // @Column({ type: DataType.INTEGER })

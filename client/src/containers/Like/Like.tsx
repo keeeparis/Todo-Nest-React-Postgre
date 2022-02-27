@@ -1,14 +1,17 @@
 import { FC } from 'react'
-import Button from '../../components/button/Button'
+import ButtonLike from '../../components/button-like/ButtonLike'
+import classes from './Like.module.scss'
 import { LikeProps } from '../../types'
 
-const Like:FC<LikeProps> = ({ handleLikeButton, post }) => {  
+const Like:FC<LikeProps> = ({ handleLikeButton, post, isLiked }) => {
     return (
-        <div style={{display: 'flex'}}>
-            <div>Лайки: {post.likes.length}</div>
-            <Button onClick={handleLikeButton}>
-                Like
-            </Button>
+        <div className={classes.container}>
+            <ButtonLike 
+                onClick={handleLikeButton} 
+                isLiked={isLiked}
+            >   
+                &nbsp; {post.likes.length}
+            </ButtonLike>
         </div>
     )
 }

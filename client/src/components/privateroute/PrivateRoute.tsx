@@ -1,14 +1,11 @@
-import { Navigate } from "react-router-dom"
+import { FC } from "react"
 import { useSelector } from "react-redux"
+import { Navigate } from "react-router-dom"
 
 import { getCurrentUser, getIsLoading } from "../../redux/features/auth/authSlice"
+import { PrivateRouteProps } from "../../types"
 
-interface Props {
-    element: React.ComponentType
-    path?: string
-}
-
-export const PrivateRoute: React.FC<Props> = ({ element: RouteComponent }) => {
+export const PrivateRoute: FC<PrivateRouteProps> = ({ element: RouteComponent }) => {
     const user = useSelector(getCurrentUser)
     const isLoading = useSelector(getIsLoading)
     
@@ -16,9 +13,7 @@ export const PrivateRoute: React.FC<Props> = ({ element: RouteComponent }) => {
         return null
     }
 
-    if (user) {
-        return <RouteComponent />
-    }
-
-    return <Navigate to="/login" />
+    return user 
+        ? <RouteComponent /> 
+        : <Navigate to="/login" />
 }

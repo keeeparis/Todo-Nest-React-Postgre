@@ -1,0 +1,13 @@
+.button {
+    cursor: pointer;
+    outline: 1px solid lightgray;
+    border: none;
+}
+
+.liked {
+    background-color: rgb(255, 185, 209);
+
+    svg {
+        fill: red;
+    }
+}

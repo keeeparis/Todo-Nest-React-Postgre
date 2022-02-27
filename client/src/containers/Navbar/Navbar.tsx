@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { HomeOutlined, LoginOutlined, LogoutOutlined, SmileOutlined, TeamOutlined, UserAddOutlined } from '@ant-design/icons'
+import { HomeTwoTone, LoginOutlined, LogoutOutlined, SmileTwoTone, TeamOutlined, UserAddOutlined } from '@ant-design/icons'
 
 import { getCurrentUser, getIsLoading, logoutRedux } from "../../redux/features/auth/authSlice";
 import classes from './Navbar.module.scss'
@@ -17,31 +17,35 @@ export default function Navbar() {
         dispatch(logoutRedux())
     }
 
+    const isHomeActive = (location.pathname === '/') ? classes.bold : ''
+    const isFeedActive = (location.pathname.startsWith('/feed')) ? classes.bold : ''
+    const isAccountActive = (location.pathname.startsWith('/account')) ? classes.bold : ''
+
     return (
         <div className={classes.container}>
             <nav className={classes.nav}>
                 <div>
                     <Link 
                         to='/' 
-                        className={(location.pathname === '/') ? classes.bold : ''}
+                        className={isHomeActive}
                     >
-                        <HomeOutlined />{' '}
+                        <HomeTwoTone twoToneColor="#eb2f96" />{' '}
                         Home
                     </Link>
                     {currentUser &&
                         <>
                             <Link 
                                 to='feed' 
-                                className={(location.pathname.startsWith('/feed')) ? classes.bold : ''}
+                                className={isFeedActive}
                             >
                                 <TeamOutlined />{' '}
                                 Feed
                             </Link>
                             <Link 
                                 to={`account/${currentUser.id}`} 
-                                className={(location.pathname.startsWith('/account')) ? classes.bold : ''}
+                                className={isAccountActive}
                             >
-                                <SmileOutlined />{' '}
+                                <SmileTwoTone />{' '}
                                 Account({currentUser.email})
                             </Link>
                         </>

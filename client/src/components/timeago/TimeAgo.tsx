@@ -1,6 +1,8 @@
 import { formatDistanceToNow, parseISO } from 'date-fns'
+import { FC } from 'react'
+import { TimeAgoProps } from '../../types'
 
-export const TimeAgo = ({ timestamp }: { timestamp: string }) => {
+export const TimeAgo:FC<TimeAgoProps> = ({ timestamp }) => {
     let timeAgo = ''
     if (timestamp) {
         const date = parseISO(timestamp)

@@ -42,8 +42,8 @@ const postSlice = createSlice({
             postAdapter.removeOne(state, action.payload)
         })
         builder.addCase(addLikeRedux.fulfilled, (state, action) => {
-            const postId = action.payload[0].postId
-            postAdapter.updateOne(state, { id: postId, changes: { likes: action.payload } })
+            const postId = action.payload.postId
+            postAdapter.updateOne(state, { id: postId, changes: { likes: action.payload.likes } })
         })
     }
 })

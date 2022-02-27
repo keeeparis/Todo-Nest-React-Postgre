@@ -1,7 +1,6 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasOne, Model, Table } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { Post } from "src/posts/posts.model";
 import { User } from "src/users/users.model";
-// import { User } from "src/users/users.model";
 
 interface LikeAttributes {
     userId: number;
@@ -20,19 +19,16 @@ export class Like extends Model<Like, LikeAttributes> {
     @BelongsTo(() => Post)
     post: Post
 
-    // @HasOne(() => User)
-    // user: User
+    @ForeignKey(() => User)
+    @Column({ type: DataType.INTEGER })
+    userId: number;
 
-    // @ForeignKey(() => User)
-    // @Column({ type: DataType.INTEGER })
-    // userId: number;
-
-    // @BelongsTo(() => User)
-    // author: User    
+    @BelongsTo(() => User)
+    author: User    
 
     sanitizeData() {
-        const { id, postId } = this
-        const responseObj = { id, postId }
+        const { id, postId, userId } = this
+        const responseObj = { id, postId, userId }
         return responseObj
     }
 }

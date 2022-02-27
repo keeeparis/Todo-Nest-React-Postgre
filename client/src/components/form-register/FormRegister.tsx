@@ -1,13 +1,8 @@
-import { FC, FormEventHandler, ReactNode } from "react";
+import { FC, FormHTMLAttributes } from "react";
 
 import classes from './FormRegister.module.scss'
 
-interface FormRegisterProps {
-    children: ReactNode,
-    onSubmit: FormEventHandler
-}
-
-const FormRegister: FC<FormRegisterProps> = ({ children, ...props }) => {
+const FormRegister: FC<FormHTMLAttributes<HTMLFormElement>> = ({ children, ...props }) => {
     return (
       <form {...props} className={classes.form}>
           {children}

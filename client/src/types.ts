@@ -1,4 +1,5 @@
 import { EntityId, SerializedError } from '@reduxjs/toolkit'
+import { ComponentType } from 'react'
 import { Control, Path, UseFormRegister } from 'react-hook-form'
 
 export interface User {
@@ -20,6 +21,7 @@ export interface Post {
 export type Like = {
     id: number;
     postId: number;
+    userId: number;
     createdAt: string;
     updatedAt: string;
 }
@@ -77,10 +79,43 @@ export type InputPostProps = {
 
 export interface LikeProps {
     handleLikeButton: () => void;
+    isLiked: boolean;
     post: PostReceived
 }
 
 export interface addLikeProps {
     postId: number,
     userId: number
+}
+
+export type ButtonLikeProps = {
+    isLiked: boolean
+}
+
+export interface ModalProps {
+    isModalVisible: boolean;
+    handleModalOk: () => void;
+    handleModalCancel: () => void
+}
+
+export type PostItemProps = {
+    postId: EntityId,
+    excerpt?: boolean
+}
+
+export type ButtonBackProps = {
+    handleNavigateBack: () => void
+}
+
+export interface PrivateRouteProps {
+    element: ComponentType
+    path?: string
+}
+
+export type TimeAgoProps = {
+    timestamp: string
+}
+
+export type UserPostsProps = {
+    isInMyAccount: boolean
 }

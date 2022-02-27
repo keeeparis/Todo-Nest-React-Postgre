@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { EntityId } from "@reduxjs/toolkit"
 import { Link } from 'react-router-dom'
 import { useState } from "react"
 
@@ -13,8 +12,9 @@ import { getCurrentUser } from '../../redux/features/auth/authSlice'
 import { TimeAgo } from '../../components/timeago/TimeAgo'
 import { converLongContentShort } from '../../utils'
 import { RootState } from '../../redux/store/store'
+import { PostItemProps } from '../../types'
 
-export default function PostItem ({ postId, excerpt }: { postId: EntityId, excerpt?: boolean }) {
+export default function PostItem ({ postId, excerpt }: PostItemProps) {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const dispatch = useDispatch()
 
@@ -41,15 +41,14 @@ export default function PostItem ({ postId, excerpt }: { postId: EntityId, excer
         }
     }
     
-    if (!post) {
+    if (!post || !currentUser) {
         return null
     }
 
-    const isPostAndCurrentUser = post && !!currentUser
-
-    const isMyOwnPost = isPostAndCurrentUser && currentUser.id === post.userId
-    const isAdmin = isPostAndCurrentUser && currentUser.roles.some(role => role.value === 'ADMIN')
+    const isMyOwnPost = currentUser.id === post.userId
+    const isAdmin = currentUser.roles.some(role => role.value === 'ADMIN')
     const showExcerptOrFullContent = excerpt ? converLongContentShort(post.content) : post.content
+    const isCurrentUserLikedPost = post.likes.some(like => like.userId === currentUser.id)
 
     return (
         <div className={classes.container}>
@@ -68,6 +67,7 @@ export default function PostItem ({ postId, excerpt }: { postId: EntityId, excer
 
             <Like 
                 post={post}
+                isLiked={isCurrentUserLikedPost}
                 handleLikeButton={handleLikeButton} 
             />
             

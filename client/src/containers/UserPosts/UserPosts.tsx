@@ -7,12 +7,13 @@ import PostItem from '../PostItem/PostItem'
 
 import { selectPostsByUser } from '../../redux/features/post/postSlice'
 import { RootState } from '../../redux/store/store'
+import { UserPostsProps } from '../../types'
 
 export type ParamsEmailType = {
     userId: string
 }
 
-const UserPosts: FC<{isInMyAccount: boolean}> = ({ isInMyAccount }) => {
+const UserPosts: FC<UserPostsProps> = ({ isInMyAccount }) => {
     const { userId } = useParams() as ParamsEmailType
       
     const postsByUser = useSelector((state: RootState) => selectPostsByUser(state, Number(userId)))
