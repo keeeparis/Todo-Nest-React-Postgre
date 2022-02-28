@@ -1,11 +1,14 @@
 .container {
     display: flex;
-    flex: 1 1 300px;
+    width: 370px;
+    flex-shrink: 1;
+    flex-grow: 1;
     justify-content: flex-end;
 }
 
 .nav {
     height: 100%;
+    width: 275px;
     position: fixed;
     z-index: 1;
     padding: 20px 16px;
@@ -18,14 +21,36 @@
     & > div {
         display: flex;
         flex-direction: column;
-        gap: 10px;
     }
 
     a {
         color: black;
+        font-size: 20px;
+        transition-duration: 0.2s;
+        transition-property: background-color;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        border-radius: 20px;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.096);
+        }
+
+        span[role='img'] {
+            font-size: 25px;
+        }
     }
 }
 
 .bold {
     font-weight: bold;
+}
+
+.mainlinks {
+    align-items: flex-start;
+}
+
+.innertext {
+    margin: 0 15px;
 }

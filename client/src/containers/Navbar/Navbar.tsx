@@ -24,13 +24,13 @@ export default function Navbar() {
     return (
         <div className={classes.container}>
             <nav className={classes.nav}>
-                <div>
+                <div className={classes.mainlinks}>
                     <Link 
                         to='/' 
                         className={isHomeActive}
                     >
-                        <HomeTwoTone twoToneColor="#eb2f96" />{' '}
-                        Home
+                        <HomeTwoTone />
+                        <span className={classes.innertext}>Home</span>
                     </Link>
                     {currentUser &&
                         <>
@@ -38,34 +38,34 @@ export default function Navbar() {
                                 to='feed' 
                                 className={isFeedActive}
                             >
-                                <TeamOutlined />{' '}
-                                Feed
+                                <TeamOutlined />
+                                <span className={classes.innertext}>Feed</span>
                             </Link>
                             <Link 
                                 to={`account/${currentUser.id}`} 
                                 className={isAccountActive}
                             >
-                                <SmileTwoTone />{' '}
-                                Account({currentUser.email})
+                                <SmileTwoTone />
+                                <span className={classes.innertext}>Account <br></br>{currentUser.email}</span>
                             </Link>
                         </>
                     }
                 </div>
-                <div>
+                <div className={classes.mainlinks}>
                     {currentUser 
                         ?   <Link to='/' onClick={handleLogOut}>
-                                <LogoutOutlined />{' '}
-                                Log Out
+                                <LogoutOutlined />
+                                <span className={classes.innertext}>Log Out</span>
                             </Link>  
                         :   !isLoading &&
                                 <>
                                     <Link to='register'>
-                                        <UserAddOutlined />{' '}
-                                        Register
+                                        <UserAddOutlined />
+                                        <span className={classes.innertext}>Register</span>
                                     </Link>
                                     <Link to='login'>
-                                        <LoginOutlined />{' '}
-                                        Log In
+                                        <LoginOutlined />
+                                        <span className={classes.innertext}>Log In</span>
                                     </Link>
                                 </>
                     }
