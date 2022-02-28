@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useState } from "react"
+// import LazyLoad from 'react-lazyload'
 
 import Button from '../../components/button/Button'
 import Modal from '../../components/modal/Modal'
@@ -51,13 +52,14 @@ export default function PostItem ({ postId, excerpt }: PostItemProps) {
     const isCurrentUserLikedPost = post.likes.some(like => like.userId === currentUser.id)
 
     return (
+        // <LazyLoad height={200} offset={100}>
         <div className={classes.container}>
             <Link to={`/feed/${postId}`} className={classes.link}>
                 {post.title}
             </Link>
             <p className={classes.flex}>{showExcerptOrFullContent}</p>
             <p>by {
-                    <Link to={`/account/${post.userId}`} >
+                <Link to={`/account/${post.userId}`} >
                         {isMyOwnPost ? 'me' : post.email}
                     </Link>
                 }{
@@ -69,7 +71,7 @@ export default function PostItem ({ postId, excerpt }: PostItemProps) {
                 post={post}
                 isLiked={isCurrentUserLikedPost}
                 handleLikeButton={handleLikeButton} 
-            />
+                />
             
             <div className={classes.close}>
                 {(isMyOwnPost || isAdmin) && <Button onClick={handleButtonClick}>X</Button>}
@@ -81,6 +83,7 @@ export default function PostItem ({ postId, excerpt }: PostItemProps) {
                 handleModalCancel={handleModalCancel}
             ></Modal>
         </div>
+        // </LazyLoad>
     )
 }
 

@@ -54,8 +54,8 @@ export class User extends Model<User, UserAttributes> {
     
     
     sanitizeData(): UserSO {
-        const { id, email, roles, posts } = this
-        const responseObj = { id, email, roles, posts}
+        const { id, email, roles } = this
+        const responseObj = { id, email, roles }
         return responseObj
     }
 }
