@@ -13,7 +13,7 @@ type initialStateType = {
     error: SerializedError
 }
 
-const initialState = postAdapter.getInitialState<initialStateType>({ isLoading: false, error: { message: '' } })
+const initialState = postAdapter.getInitialState<initialStateType>({ isLoading: true, error: { message: '' } })
 
 const postSlice = createSlice({
     name: 'post',
