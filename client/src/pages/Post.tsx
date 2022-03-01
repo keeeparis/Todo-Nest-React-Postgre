@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-import ButtonBack from '../components/button-navigate-back/ButtonBack'
+import { useParams } from 'react-router-dom'
+import { GoBackSection } from '../containers/GoBackSection/GoBackSection'
 
 import PostItem from '../containers/PostItem/PostItem'
 
@@ -9,10 +9,7 @@ import { RootState } from '../redux/store/store'
 
 const Post = () => {
     const params = useParams() as { postId: string }
-    const navigate = useNavigate()
     const post = useSelector((state: RootState) => selectPostById(state, params.postId))
-
-    const handleNavigateBack = () => navigate(-1)
 
     if (!post) {
         return null
@@ -20,7 +17,9 @@ const Post = () => {
 
     return (
         <>
-            <ButtonBack handleNavigateBack={handleNavigateBack} />
+            <GoBackSection>
+                Пост
+            </GoBackSection>
             <PostItem postId={post.id} />
         </>
     )

@@ -33,8 +33,9 @@ export default function Login() {
             <div>
                 <h1>Log In</h1>
                 <div>
-                    <div>Does not have one?</div>
-                    <Link to='/register'>Register</Link>
+                    <div>Does not have one? &nbsp;
+                        <Link to='/register'>Register</Link>
+                    </div>
                 </div>
             </div>
             <Input 

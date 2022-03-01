@@ -14,7 +14,7 @@ export interface User {
 
 export interface Post {
     userId: number;
-    title: string;
+    // title: string;
     content: string;
 }
 
@@ -30,7 +30,6 @@ export interface PostReceived {
     id: number;
     email: string;
     userId: number;
-    title: string;
     content: string;
     createdAt: string;
     updatedAt: string;

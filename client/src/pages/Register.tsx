@@ -33,8 +33,9 @@ export default function Register() {
             <div>
                 <h1>Create an Account</h1>
                 <div>
-                    <div>Already have one?</div>
-                    <Link to='/login'>Login</Link>
+                    <div>Already have one? &nbsp;
+                        <Link to='/login'>Login</Link>
+                    </div>
                 </div>
             </div>
             <Input 

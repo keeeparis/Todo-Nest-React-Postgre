@@ -1,19 +1,16 @@
+import { ArrowLeftOutlined } from '@ant-design/icons'
 import { FC } from 'react'
 import { ButtonBackProps } from '../../types'
-import Button from '../button/Button'
+import classes from './ButtonBack.module.scss'
 
 const ButtonBack:FC<ButtonBackProps> = ({ handleNavigateBack }) => {
     return (
-        <Button 
+        <button 
             onClick={handleNavigateBack}
-            style={{
-                marginBottom: '10px', 
-                width: '40px', 
-                borderRadius: '50%'
-            }}
+            className={classes.button}
         >
-            {'<-'}
-        </Button>
+            <ArrowLeftOutlined />
+        </button>
     )
 }
 

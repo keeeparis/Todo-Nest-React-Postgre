@@ -17,11 +17,11 @@ const Textarea = ({ label, register, required, control, maxLength }: InputPostPr
 
     return (
         <div className={classes.inputControl}>
-            <label>{toCapitalFirstLetter(label)}</label>
+            {/* <label>{toCapitalFirstLetter(label)}</label> */}
             <textarea 
-                rows={5}
+                rows={3}
                 className={ fieldState.invalid ? cn(classes.textarea, classes.error) : classes.textarea}
-                {...register(label, {required})}
+                {...register(label, {required, maxLength})}
             />
             {countDiv}
         </div>

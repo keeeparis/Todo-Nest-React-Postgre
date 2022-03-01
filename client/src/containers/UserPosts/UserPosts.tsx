@@ -21,7 +21,7 @@ const UserPosts: FC<UserPostsProps> = ({ isInMyAccount }) => {
         <PostItem key={post.id} postId={post.id} excerpt={true}/>
     ))
 
-    const whosePage = isInMyAccount ? 'My Posts' : `${userId}'s posts`
+    const whosePage = isInMyAccount ? 'My Posts' : ``
     const isPosts = posts.length ? posts : 'No Posts yet. :('
 
     return (

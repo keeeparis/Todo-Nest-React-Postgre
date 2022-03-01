@@ -1,13 +1,18 @@
 .button {
     cursor: pointer;
-    outline: 1px solid lightgray;
+    // outline: 1px solid lightgray;
     border: none;
     border-radius: 30px;
     padding: 3px 10px;
+    transition-duration: 0.2s;
+    transition-property: background-color;
+
+    &:hover {
+        background-color: rgba(255, 185, 209, 0.801);
+    }
 }
 
 .liked {
-    background-color: rgb(255, 185, 209);
 
     svg {
         fill: red;

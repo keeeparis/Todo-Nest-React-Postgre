@@ -7,15 +7,18 @@ export default function Feed() {
     const isLoading = useSelector(getIsLoadingPost)
     const error = useSelector(getErrorPost)
     const postsId = useSelector(selectPostIds)
+
+    const content = postsId.length 
+        ?   postsId.map(postId =>
+                <PostItem key={postId} postId={postId} excerpt={true} />
+            )
+        :   <div>Постов пока нет :(</div>
    
     return (
         <div className='feed'>
             {isLoading 
             ?   <p>Loading ...</p>
-            :   !error.message &&
-                    postsId.map(postId =>
-                        <PostItem key={postId} postId={postId} excerpt={true} />
-                    )
+            :   !error.message && content
             }
         </div>
     )

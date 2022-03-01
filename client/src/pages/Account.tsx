@@ -1,18 +1,17 @@
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { useForm } from "react-hook-form"
 import { useEffect } from "react"
 
 import FormPost from "../components/form-post/FormPost"
 import Textarea from '../components/textarea/Textarea'
-import Input from '../components/input-post/Input'
 import Button from "../components/button/Button"
-import ButtonBack from '../components/button-navigate-back/ButtonBack'
 import UserPosts, { ParamsEmailType } from '../containers/UserPosts/UserPosts'
 
 import { addNewPostRedux } from "../redux/features/post/postSlice"
 import { getCurrentUser } from "../redux/features/auth/authSlice"
 import { Post } from "../types"
+import { GoBackSection } from '../containers/GoBackSection/GoBackSection'
 
 const Account = () => {
     const { 
@@ -24,7 +23,6 @@ const Account = () => {
     } = useForm<Post>()
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const { userId } = useParams() as ParamsEmailType
     const currentUser = useSelector(getCurrentUser)
     
@@ -37,8 +35,6 @@ const Account = () => {
         }
     }
 
-    const handleNavigateBack = () => navigate(-1)
-
     useEffect(() => {
         if (isSubmitSuccessful) {
             reset()
@@ -48,19 +44,13 @@ const Account = () => {
     return (
         <div className="account">
             {!isInMyAccount && 
-                <ButtonBack handleNavigateBack={handleNavigateBack} />
+                <GoBackSection>
+                    {userId}'s posts
+                </GoBackSection>
             }
             {isInMyAccount &&
                 <FormPost onSubmit={handleSubmit(onSubmit)}>
                     <h1>Написать</h1>
-                    <Input 
-                        type="text"
-                        label="title"
-                        register={register}
-                        control={control}
-                        required
-                    />
-                    {errors.title && <p>Укажите заголовок.</p>}
                     <Textarea 
                         label="content"
                         register={register}

@@ -1,6 +1,7 @@
 .layout {
     display: flex;
     flex-direction: row;
+    padding-left: calc(100vw - 100%);
 }
 
 .main {
