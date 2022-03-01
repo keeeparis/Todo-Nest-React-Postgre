@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { PrivateRoute } from './components/privateroute/PrivateRoute'
 import { getCurrentUser, getProfileRedux } from "./redux/features/auth/authSlice"
 import { fetchPostsRedux } from "./redux/features/post/postSlice"
+import { Spinner } from "./components/spinner/Spinner"
 
 const Layout = lazy(() => import('./containers/Layout/Layout'))
 const Register = lazy(() => import('./pages/Register'))
@@ -30,7 +31,7 @@ export default function App() {
     }, [dispatch, currentUser])
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Spinner />}>
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />}/>
