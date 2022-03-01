@@ -1,68 +1,45 @@
 import { useParams } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { useForm } from "react-hook-form"
-import { useEffect } from "react"
+import { useSelector } from "react-redux"
 
-import FormPost from "../components/form-post/FormPost"
-import Textarea from '../components/textarea/Textarea'
-import Button from "../components/button/Button"
-import UserPosts, { ParamsEmailType } from '../containers/UserPosts/UserPosts'
+import PostItem from "../containers/PostItem/PostItem"
 
-import { addNewPostRedux } from "../redux/features/post/postSlice"
 import { getCurrentUser } from "../redux/features/auth/authSlice"
-import { Post } from "../types"
 import { GoBackSection } from '../containers/GoBackSection/GoBackSection'
+import { RootState } from "../redux/store/store"
+import { getIsLoadingPost, selectPostsByUser } from "../redux/features/post/postSlice"
+import { Spinner } from "../components/spinner/Spinner"
+
+export type ParamsEmailType = {
+    userId: string
+}
 
 const Account = () => {
-    const { 
-        register, 
-        handleSubmit, 
-        formState: { errors, isSubmitSuccessful },
-        control,
-        reset
-    } = useForm<Post>()
-
-    const dispatch = useDispatch()
     const { userId } = useParams() as ParamsEmailType
     const currentUser = useSelector(getCurrentUser)
+    const isLoading = useSelector(getIsLoadingPost)
     
     const isInMyAccount = !!currentUser && currentUser.id === Number(userId)
 
-    const onSubmit = (data: Post) => {
-        if (currentUser) {
-            const postData = {...data, userId: currentUser.id}
-            dispatch(addNewPostRedux(postData))
-        }
-    }
+    const postsByUser = useSelector((state: RootState) => selectPostsByUser(state, Number(userId)))
+    const posts = postsByUser.map(post => (
+        <PostItem key={post.id} postId={post.id} excerpt={true}/>
+    ))
 
-    useEffect(() => {
-        if (isSubmitSuccessful) {
-            reset()
-        }
-    }, [isSubmitSuccessful, reset])
+    const whosePosts = isInMyAccount ? 'My Posts' : `${userId}'s posts`
+    const isPosts = posts.length ? posts : 'No Posts yet. :('
 
     return (
         <div className="account">
-            {!isInMyAccount && 
-                <GoBackSection>
-                    {userId}'s posts
-                </GoBackSection>
-            }
-            {isInMyAccount &&
-                <FormPost onSubmit={handleSubmit(onSubmit)}>
-                    <h1>Написать</h1>
-                    <Textarea 
-                        label="content"
-                        register={register}
-                        control={control}
-                        required
-                        maxLength={250}
-                    />
-                    {errors.content && <p>Укажите текст поста не больше 250 символов.</p>}
-                    <Button type='submit'>Опубликовать</Button>
-                </FormPost>
-            }
-            <UserPosts isInMyAccount={isInMyAccount} />
+            <GoBackSection>
+                {whosePosts} 
+            </GoBackSection>
+
+            <div>
+                {isLoading 
+                    ? <Spinner /> 
+                    : isPosts
+                }
+            </div>
         </div>
     )
 }
