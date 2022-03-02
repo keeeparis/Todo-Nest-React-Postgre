@@ -1,11 +1,11 @@
 .button {
     cursor: pointer;
-    // outline: 1px solid lightgray;
     border: none;
     border-radius: 30px;
     padding: 3px 10px;
     transition-duration: 0.2s;
     transition-property: background-color;
+    margin-right: 10px;
 
     &:hover {
         background-color: rgba(255, 185, 209, 0.801);

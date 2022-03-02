@@ -34,15 +34,12 @@ export default function App() {
         <Suspense fallback={<Spinner />}>
             <Routes>
                 <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />}/>
+                    <Route index element={<Home />} />
                     <Route path="register" element={<Register />} />
                     <Route path="login" element={<Login />} />
-                    <Route 
-                        path='account/:userId' 
-                        element={<PrivateRoute element={Account} />}
-                        />
+                    <Route path='account/:userId' element={<PrivateRoute element={Account} />} />
                     <Route path='feed'>
-                        <Route index element={<PrivateRoute element={Feed} />}/>
+                        <Route index element={<PrivateRoute element={Feed} />} />
                         <Route path=':postId' element={<PrivateRoute element={Post} />} />
                     </Route>
                 </Route>

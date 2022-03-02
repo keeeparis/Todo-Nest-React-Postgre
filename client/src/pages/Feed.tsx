@@ -57,6 +57,7 @@ export default function Feed() {
                     control={control}
                     required
                     maxLength={250}
+                    placeholder='Что вы хотите сказать?'
                 />
                 {errors.content && <p>Укажите текст поста не больше 250 символов.</p>}
                 <Button type='submit'>Опубликовать</Button>
@@ -68,7 +69,6 @@ export default function Feed() {
                     <div>
                         {content}
                     </div>
-                
             }
         </div>
     )
