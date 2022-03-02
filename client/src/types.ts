@@ -2,11 +2,14 @@ import { EntityId, SerializedError } from '@reduxjs/toolkit'
 import { ComponentType } from 'react'
 import { Control, Path, UseFormRegister } from 'react-hook-form'
 
+// TODO: 
+// разобрать с типами инпута
+
 export interface User {
     id: number;
     email: string;
     password: string;
-    posts: PostReceived[];
+    // posts: PostReceived[];
     roles: Role[];
     createdAt: string;
     updatedAt: string;
@@ -14,7 +17,6 @@ export interface User {
 
 export interface Post {
     userId: number;
-    // title: string;
     content: string;
 }
 
@@ -26,6 +28,21 @@ export type Like = {
     updatedAt: string;
 }
 
+export type Comment  = {
+    id: number;
+    postId: number;
+    userId: number;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export type CommentInput = {
+    content: string;
+    userId: number;
+    postId: number;
+}
+
 export interface PostReceived {
     id: number;
     email: string;
@@ -34,7 +51,8 @@ export interface PostReceived {
     createdAt: string;
     updatedAt: string;
     image: string | null,
-    likes: Like[]
+    likes: Like[],
+    comments: Comment[]
 }
 
 export interface Role {
@@ -71,15 +89,29 @@ export type InputPostProps = {
     required: boolean,
     pattern?: RegExp,
     minLength?: number,
-    maxLength?: number,
+    maxLength: number,
     type?: string,
+    placeholder?: string,
     control: Control<Post, object>
 }
 
-export interface LikeProps {
+export type InputCommentProps = {
+    label: Path<CommentInput>,
+    register: UseFormRegister<CommentInput>,
+    required: boolean,
+    pattern?: RegExp,
+    minLength?: number,
+    maxLength: number,
+    type?: string,
+    placeholder?: string,
+    control: Control<CommentInput, object>
+}
+
+export interface ReactionSectionProps {
     handleLikeButton: () => void;
+    handleCommentButton: () => void;
     isLiked: boolean;
-    post: PostReceived
+    post: PostReceived;
 }
 
 export interface addLikeProps {

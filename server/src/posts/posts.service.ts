@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Comment } from 'src/comments/comments.model';
 import { FilesService } from 'src/files/files.service';
 import { Like } from 'src/likes/likes.model';
 import { User } from 'src/users/users.model';
@@ -22,11 +23,10 @@ export class PostsService {
 
     async getAllPosts() {
         try {
-            const posts = await this.postRepository.findAll({ include: [User, Like] })
+            const posts = await this.postRepository.findAll({ include: [User, Like, Comment] })
             const sanitizedPosts = posts.map(post => post.sanitizeData())
             return sanitizedPosts
         } catch (e) {
-            console.log(e)
             throw new HttpException('Ошибка при получении постов', HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }

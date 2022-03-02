@@ -5,7 +5,7 @@ import { useState } from "react"
 
 import Button from '../../components/button/Button'
 import Modal from '../../components/modal/Modal'
-import Like from '../Like/Like'
+import ReactionSection from '../ReactionSection/ReactionSection'
 import classes from './PostItem.module.scss'
 
 import { addLikeRedux, deletePostRedux, selectPostById } from '../../redux/features/post/postSlice'
@@ -47,6 +47,10 @@ export default function PostItem ({ postId, excerpt }: PostItemProps) {
             dispatch(addLikeRedux(data))
         }
     }
+
+    const handleCommentButton = () => {
+        navigateToPostPage()
+    }
     
     if (!post || !currentUser) {
         return null
@@ -70,10 +74,11 @@ export default function PostItem ({ postId, excerpt }: PostItemProps) {
             <p className={classes.flex}>{showExcerptOrFullContent}</p>
 
             <StopPropagationComponent>
-                <Like 
+                <ReactionSection 
                     post={post}
                     isLiked={isCurrentUserLikedPost}
-                    handleLikeButton={handleLikeButton} 
+                    handleLikeButton={handleLikeButton}
+                    handleCommentButton={handleCommentButton} 
                 />
             </StopPropagationComponent>
 

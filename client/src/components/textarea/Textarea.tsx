@@ -3,27 +3,28 @@ import cn from 'classnames'
 
 import classes from './Textarea.module.scss'
 
-import { toCapitalFirstLetter } from '../../utils'
 import { InputPostProps } from '../../types'
 
-const Textarea = ({ label, register, required, control, maxLength }: InputPostProps) => {
+const Textarea = ({ label, register, required, control, maxLength, placeholder }: InputPostProps) => {
     const { fieldState, field } = useController({
         name: label,
         control,
     })
 
     const fieldSymbolsCount = field.value ? field.value.toString().length : 0
-    const countDiv = fieldSymbolsCount ? <p className={classes.counter}>{fieldSymbolsCount}/{maxLength}</p> : <></>
+    const countDiv = fieldSymbolsCount ? `${fieldSymbolsCount}/${maxLength}` : ''
 
     return (
         <div className={classes.inputControl}>
-            {/* <label>{toCapitalFirstLetter(label)}</label> */}
             <textarea 
                 rows={3}
-                className={ fieldState.invalid ? cn(classes.textarea, classes.error) : classes.textarea}
-                {...register(label, {required, maxLength})}
+                className={ fieldState.invalid ? cn(classes.textarea, classes.error) : classes.textarea }
+                placeholder={placeholder}
+                {...register(label, { required, maxLength })}
             />
-            {countDiv}
+            <p className={classes.counter}>
+                {countDiv}
+            </p>
         </div>
 )}
 

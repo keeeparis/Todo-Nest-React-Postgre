@@ -1,0 +1,8 @@
+.form {
+    width: 500px;
+
+    button {
+        width: 150px;
+        margin-left: calc(100% - 150px);
+    }
+}

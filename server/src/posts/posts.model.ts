@@ -1,6 +1,7 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 import { Like } from "src/likes/likes.model";
 import { User } from "src/users/users.model";
+import { Comment } from 'src/comments/comments.model'
 
 interface PostAttributes {
     content: string;
@@ -29,9 +30,12 @@ export class Post extends Model<Post, PostAttributes> {
     @HasMany(() => Like)
     likes: Like[]
 
+    @HasMany(() => Comment)
+    comments: Comment[]
+
     sanitizeData() {
-        const { id,  content, createdAt, updatedAt, image, userId, author: { email }, likes } = this
-        const sanitizedObject = { id,  content, createdAt, updatedAt, image, userId, email, likes}
+        const { id,  content, createdAt, updatedAt, image, userId, author: { email }, likes, comments } = this
+        const sanitizedObject = { id,  content, createdAt, updatedAt, image, userId, email, likes, comments }
         return sanitizedObject
     }
 }

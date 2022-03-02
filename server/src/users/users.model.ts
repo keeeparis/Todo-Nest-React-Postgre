@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { Comment } from "src/comments/comments.model";
 
 import { Like } from "src/likes/likes.model";
 import { Post } from "src/posts/posts.model"
@@ -42,16 +43,8 @@ export class User extends Model<User, UserAttributes> {
     @HasMany(() => Like)
     likes: Like[]
 
-    // @ForeignKey(() => Like)
-    // @Column({ type: DataType.INTEGER })
-    // likeId: Like
-
-    // @BelongsTo(() => Like)
-    // like: Like
-
-    // @BelongsToMany(() => Post, () => Like)
-    // likes: Like[]
-    
+    @HasMany(() => Comment)
+    comments: Comment[]
     
     sanitizeData(): UserSO {
         const { id, email, roles } = this

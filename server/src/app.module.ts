@@ -17,6 +17,8 @@ import { Post } from './posts/posts.model';
 import { Like } from './likes/likes.model';
 import { FilesModule } from './files/files.module';
 import { LikesModule } from './likes/likes.module';
+import { CommentsModule } from './comments/comments.module';
+import { Comment } from './comments/comments.model';
 
 @Module({
     imports: [
@@ -31,7 +33,7 @@ import { LikesModule } from './likes/likes.module';
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [User, Role, UserRoles, Post, Like],
+            models: [User, Role, UserRoles, Post, Like, Comment],
             autoLoadModels: true
         }),
         UsersModule,
@@ -39,7 +41,8 @@ import { LikesModule } from './likes/likes.module';
         AuthModule,
         RolesModule,
         FilesModule,
-        LikesModule
+        LikesModule,
+        CommentsModule
     ],
     controllers: [],
     providers: [
