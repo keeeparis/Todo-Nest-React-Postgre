@@ -7,8 +7,6 @@ import { RolesService } from 'src/roles/roles.service';
 import { addRoleDto } from './dto/add-role.dto';
 import { Role } from 'src/roles/roles.model';
 import { Post } from 'src/posts/posts.model';
-import { Like } from 'src/likes/likes.model';
-import { UserRoles } from 'src/roles/user-roles.model';
 
 @Injectable()
 export class UsersService {

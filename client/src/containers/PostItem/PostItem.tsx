@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useState } from "react"
 // import LazyLoad from 'react-lazyload'
 
@@ -20,6 +20,7 @@ export default function PostItem ({ postId, excerpt }: PostItemProps) {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
 
     const post = useSelector((state: RootState) => selectPostById(state, postId))
     const currentUser = useSelector(getCurrentUser)
@@ -38,7 +39,9 @@ export default function PostItem ({ postId, excerpt }: PostItemProps) {
     }
 
     const navigateToPostPage = () => {
-        navigate(`/feed/${postId}`)
+        if (location.pathname !== `/feed/${postId}`) {
+            navigate(`/feed/${postId}`) 
+        }
     }
 
     const handleLikeButton = () => {
@@ -61,9 +64,31 @@ export default function PostItem ({ postId, excerpt }: PostItemProps) {
     const showExcerptOrFullContent = excerpt ? converLongContentShort(post.content) : post.content
     const isCurrentUserLikedPost = post.likes.some(like => like.userId === currentUser.id)
 
+    const showCloseButtonModal = (isMyOwnPost || isAdmin) && 
+        <>
+            <StopPropagationComponent className={classes.close}>
+                <Button 
+                    onClick={handleButtonClick} 
+                    title='Delete Post'
+                >
+                    X
+                </Button> 
+            </StopPropagationComponent>
+
+            <StopPropagationComponent>
+                <Modal 
+                    isModalVisible={isModalVisible} 
+                    handleModalOk={handleModalOk}
+                    handleModalCancel={handleModalCancel}
+                />
+            </StopPropagationComponent>
+        </>
+
     return (
-        // <LazyLoad height={200} offset={100}>
-        <div className={classes.container} onClick={navigateToPostPage}>
+        <div 
+            className={classes.container} 
+            onClick={navigateToPostPage}
+        >
             <StopPropagationComponent className={classes.head}>
                 <Link to={`/account/${post.userId}`}>
                     {post.email}
@@ -71,7 +96,9 @@ export default function PostItem ({ postId, excerpt }: PostItemProps) {
                 <TimeAgo timestamp={post.createdAt} />
             </StopPropagationComponent> 
 
-            <p className={classes.flex}>{showExcerptOrFullContent}</p>
+            <p className={classes.flex}>
+                {showExcerptOrFullContent}
+            </p>
 
             <StopPropagationComponent>
                 <ReactionSection 
@@ -82,23 +109,7 @@ export default function PostItem ({ postId, excerpt }: PostItemProps) {
                 />
             </StopPropagationComponent>
 
-            {(isMyOwnPost || isAdmin) &&
-                <>
-                    <StopPropagationComponent className={classes.close}>
-                        { (isMyOwnPost || isAdmin) && 
-                            <Button onClick={handleButtonClick} title='Delete Post'>X</Button> }
-                    </StopPropagationComponent>
-
-                    <StopPropagationComponent>
-                        <Modal 
-                            isModalVisible={isModalVisible} 
-                            handleModalOk={handleModalOk}
-                            handleModalCancel={handleModalCancel}
-                        />
-                    </StopPropagationComponent>
-                </>
-            }
+            {showCloseButtonModal}
         </div>
-        // </LazyLoad>
     )
 }

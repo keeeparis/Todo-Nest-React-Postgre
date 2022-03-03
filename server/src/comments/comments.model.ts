@@ -28,11 +28,11 @@ export class Comment extends Model<Comment, CommentsAttributes> {
     userId: number;
 
     @BelongsTo(() => User)
-    author: User    
+    author: User
 
     sanitizeData() {
-        const { id, content, postId, userId } = this
-        const responseObj = { id, content, postId, userId }
+        const { id, content, postId, userId, createdAt, author: { email } } = this
+        const responseObj = { id, content, postId, userId, createdAt, email }
         return responseObj
     }
 }

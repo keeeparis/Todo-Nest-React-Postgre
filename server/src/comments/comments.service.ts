@@ -15,14 +15,13 @@ export class CommentsService {
             const responseObj = { postId: dto.postId, comments }
             return responseObj
         } catch (e) {
-            console.log(e)
             throw new HttpException('Ошибка при записи комментария', HttpStatus.BAD_REQUEST)
         }
     }
 
     async getAllCommentsByPostId(postId: number) {
         try {
-            const comments = await this.commentRepository.findAll({ where: { postId },  include: { all: true } })
+            const comments = await this.commentRepository.findAll({ where: { postId }, include: { all: true } })
             const sanitizedComments = comments.map(post => post.sanitizeData())
             return sanitizedComments
         } catch (e) {

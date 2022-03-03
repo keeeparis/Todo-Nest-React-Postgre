@@ -28,9 +28,10 @@ export type Like = {
     updatedAt: string;
 }
 
-export type Comment  = {
+export type CommentReceived  = {
     id: number;
     postId: number;
+    email: string;
     userId: number;
     content: string;
     createdAt: string;
@@ -52,7 +53,7 @@ export interface PostReceived {
     updatedAt: string;
     image: string | null,
     likes: Like[],
-    comments: Comment[]
+    comments: CommentReceived[]
 }
 
 export interface Role {

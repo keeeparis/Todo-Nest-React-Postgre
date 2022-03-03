@@ -6,7 +6,7 @@ import PostItem from '../containers/PostItem/PostItem'
 import Comment from '../containers/Comment/Comment'
 import FormComment from '../components/form-comment/FormComment'
 
-import { addCommentRedux, selectPostById } from '../redux/features/post/postSlice'
+import { selectPostById } from '../redux/features/post/postSlice'
 import { RootState } from '../redux/store/store'
 import Input from '../components/input-comment/Input'
 import { CommentInput } from '../types'
@@ -14,6 +14,7 @@ import { useForm } from 'react-hook-form'
 import Button from '../components/button/Button'
 import { useEffect } from 'react'
 import { getCurrentUser } from '../redux/features/auth/authSlice'
+import { getCommentsRedux, selectCommentIds, addCommentRedux } from '../redux/features/comment/commentSlice'
 
 const Post = () => {
     const { 
@@ -26,6 +27,7 @@ const Post = () => {
 
     const params = useParams() as { postId: string }
     const post = useSelector((state: RootState) => selectPostById(state, params.postId))
+    const comments = useSelector(selectCommentIds)
     const currentUser = useSelector(getCurrentUser)
     const dispatch = useDispatch()
     
@@ -45,6 +47,12 @@ const Post = () => {
             reset()
         }
     }, [isSubmitSuccessful, reset])
+
+    useEffect(() => {
+        if (post) {
+            dispatch(getCommentsRedux(post.id))
+        }
+    }, [dispatch, post])
     
     if (!post) {
         return null
@@ -73,7 +81,7 @@ const Post = () => {
                 <Button type='submit'>Опубликовать</Button>
             </FormComment>
 
-            <Comment post={post} />
+            <Comment comments={comments} />
         </>
     )
 }
