@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Query, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { CommentsService } from './comments.service';
 import { addCommentDto } from './dto/add-comment.dto';
 
@@ -14,5 +15,10 @@ export class CommentsController {
     @Get()
     getComments(@Query('postId') postId: number) {
         return this.commentService.getAllCommentsByPostId(postId)
+    }
+
+    @Delete()
+    deleteComment(@Req() req: Request) {
+        return this.commentService.delete(req.body)
     }
 }

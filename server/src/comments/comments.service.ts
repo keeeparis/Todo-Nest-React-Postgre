@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Comment } from './comments.model';
 import { addCommentDto } from './dto/add-comment.dto';
+import { DeleteCommentDto } from './dto/delete-comment.dto';
 
 @Injectable()
 export class CommentsService {
@@ -26,6 +27,17 @@ export class CommentsService {
             return sanitizedComments
         } catch (e) {
             throw new HttpException('Ошибка при получении комментариев', HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
+
+    async delete(dto: DeleteCommentDto) {
+        try {
+            await this.commentRepository.destroy({ where: { id: dto.commentId }})
+            const comments = await this.getAllCommentsByPostId(dto.postId)
+            const responseObj = { postId: dto.postId, comments }
+            return responseObj
+        } catch (e) {
+            throw new HttpException('Невозможно удалить выбранный комментарий', HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 }

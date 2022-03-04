@@ -36,7 +36,7 @@ export class PostsService {
             await this.postRepository.destroy({ where: { id: postId }})
             return postId
         } catch (e) {
-            throw new HttpException('Невозможно удалить выбраный пост', HttpStatus.INTERNAL_SERVER_ERROR)
+            throw new HttpException('Невозможно удалить выбранный пост', HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 }

@@ -35,6 +35,7 @@ export class Post extends Model<Post, PostAttributes> {
 
     sanitizeData() {
         const { id,  content, createdAt, updatedAt, image, userId, author: { email }, likes, comments } = this
+        // const [num_likes, num_comments] = [likes.length, comments.length]
         const sanitizedObject = { id,  content, createdAt, updatedAt, image, userId, email, likes, comments }
         return sanitizedObject
     }

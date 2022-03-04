@@ -1,7 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityId, SerializedError } from "@reduxjs/toolkit";
 
-import { addComment, addLike, addNewPost, deletePost, fetchPosts } from "../../../api/post";
-import { addLikeProps, CommentInput, Post, PostReceived } from "../../../types";
+import { addComment, addLike, addNewPost, deleteComment, deletePost, fetchPosts } from "../../../api/post";
+import { addLikeProps, CommentInput, deleteCommentProps, Post, PostReceived } from "../../../types";
 import { RootState } from "../../store/store";
 
 const postAdapter = createEntityAdapter<PostReceived>({
@@ -46,6 +46,10 @@ const postSlice = createSlice({
             postAdapter.updateOne(state, { id: postId, changes: { likes: action.payload.likes } })
         })
         builder.addCase(addCommentRedux.fulfilled, (state, action) => {
+            const postId = action.payload.postId
+            postAdapter.updateOne(state, { id: postId, changes: { comments: action.payload.comments } })
+        })
+        builder.addCase(deleteCommentRedux.fulfilled, (state, action) => {
             const postId = action.payload.postId
             postAdapter.updateOne(state, { id: postId, changes: { comments: action.payload.comments } })
         })
@@ -99,6 +103,13 @@ export const addCommentRedux = createAsyncThunk(
     'post/addComment',
     async (data: CommentInput) => {
         const response = await addComment(data)
+        return response.data
+    }
+)
+export const deleteCommentRedux = createAsyncThunk(
+    'post/deleteComment',
+    async (data: deleteCommentProps) => {
+        const response = await deleteComment(data)
         return response.data
     }
 )

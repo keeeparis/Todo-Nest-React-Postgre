@@ -1,7 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice, SerializedError } from "@reduxjs/toolkit";
-import { addComment, getComments } from "../../../api/comment";
+import { getComments } from "../../../api/comment";
 
-import { CommentReceived, CommentInput } from "../../../types";
+import { CommentReceived } from "../../../types";
 import { RootState } from "../../store/store";
 
 const commentAdapter = createEntityAdapter<CommentReceived>({
@@ -35,9 +35,6 @@ const postSlice = createSlice({
             state.isLoading = false
             state.error.message = action.error.message
         })
-        builder.addCase(addCommentRedux.fulfilled, (state, action) => {
-            commentAdapter.setAll(state, action.payload.comments)
-        })
     }
 })
 
@@ -59,12 +56,3 @@ export const getCommentsRedux = createAsyncThunk(
         return response.data
     }
 )
-
-export const addCommentRedux = createAsyncThunk(
-    'comment/addComment',
-    async (data: CommentInput) => {
-        const response = await addComment(data)        
-        return response.data
-    }
-)
-
