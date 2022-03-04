@@ -80,6 +80,7 @@ export default function PostItem ({ postId, excerpt }: PostItemProps) {
                     isModalVisible={isModalVisible} 
                     handleModalOk={handleModalOk}
                     handleModalCancel={handleModalCancel}
+                    text='Вы уверены, что хотите удалить пост?'
                 />
             </StopPropagationComponent>
         </>

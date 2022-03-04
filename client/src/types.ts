@@ -53,7 +53,9 @@ export interface PostReceived {
     updatedAt: string;
     image: string | null,
     likes: Like[],
-    comments: CommentReceived[]
+    comments: CommentReceived[],
+    num_likes?: number,
+    num_comments?: number,
 }
 
 export interface Role {
@@ -125,6 +127,7 @@ export type ButtonLikeProps = {
 }
 
 export interface ModalProps {
+    text: string;
     isModalVisible: boolean;
     handleModalOk: () => void;
     handleModalCancel: () => void
@@ -150,4 +153,9 @@ export type TimeAgoProps = {
 
 export type UserPostsProps = {
     isInMyAccount: boolean
+}
+
+export type deleteCommentProps = {
+    commentId: EntityId,
+    postId: number
 }

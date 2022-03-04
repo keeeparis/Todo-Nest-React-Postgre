@@ -8,7 +8,7 @@ export const GoBackSection:FC = ({ children }) => {
     const handleNavigateBack = () => navigate(-1)
 
     return (
-        <div>
+        <div className={classes.container}>
             <ButtonBack handleNavigateBack={handleNavigateBack} />
             <div className={classes.post}>{children}</div>
         </div>

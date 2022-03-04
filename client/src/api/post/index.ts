@@ -1,7 +1,7 @@
 import { EntityId } from "@reduxjs/toolkit"
 import axios from "axios"
 
-import { addLikeProps, CommentInput, Post } from "../../types"
+import { addLikeProps, CommentInput, deleteCommentProps, Post } from "../../types"
 import { handleError } from "../auth"
 
 export const addNewPost = async (data: Post) => {
@@ -38,6 +38,14 @@ export const addLike = async (data: addLikeProps) => {
 export const addComment = async (data: CommentInput) => {
     try {
         const response = await axios.post('/api/comments', data)
+        return response
+    } catch (e) {
+        throw handleError(e)
+    }
+}
+export const deleteComment = async (data: deleteCommentProps) => {
+    try {
+        const response = await axios.delete('/api/comments', { data })
         return response
     } catch (e) {
         throw handleError(e)

@@ -24,8 +24,9 @@ const Account = () => {
     const posts = postsByUser.map(post => (
         <PostItem key={post.id} postId={post.id} excerpt={true}/>
     ))
+    const accountInfoFromPost = postsByUser[0].email
 
-    const whosePosts = isInMyAccount ? 'My Posts' : `${userId}'s posts`
+    const whosePosts = isInMyAccount ? 'My Posts' : `${accountInfoFromPost}'s posts`
     const isPosts = posts.length ? posts : 'No Posts yet. :('
 
     return (
