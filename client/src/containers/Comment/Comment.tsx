@@ -17,7 +17,7 @@ const Comment: FC<{postId: string}> = ({ postId }) => {
         ?   comments.map(comment =>
                 <CommentItem key={comment} commentId={comment} />
             )
-        :   'Оставьте первый комментарий!'
+        :   'Оставьте первый комментарий! ff'
     
     const num_comments = post && post.comments.length
     
