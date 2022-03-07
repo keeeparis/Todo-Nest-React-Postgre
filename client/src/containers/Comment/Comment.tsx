@@ -21,8 +21,11 @@ const Comment: FC<{postId: string}> = ({ postId }) => {
     
     const num_comments = post && post.comments.length
     
+    // When you addComment it adds to post.comments, if the length of post.comments
+    // and getCommentsRedux() is not equal it send GET request and receives all comments
+    // for current post. 
     useEffect(() => {
-        if (num_comments !== comments.length) {
+        if (num_comments !== comments.length || num_comments === 0) {
             dispatch(getCommentsRedux(Number(postId)))
         }
     }, [comments.length, dispatch, num_comments, postId])

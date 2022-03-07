@@ -13,8 +13,9 @@ services:
         restart: always
         env_file:
             - ./server/.production.env
-        # command: npm run start:prod
-        command: ['./wait-for-it.sh', 'postgres_db:5432', '--', 'node', 'main.js']
+        command: npm run start:mig-prod
+        # command: ['./wait-for-it.sh', 'postgres_db:5432', '--', 'node', 'main.js']
+        # entrypoint: ['./check.sh']
 
     client:
         container_name: client
