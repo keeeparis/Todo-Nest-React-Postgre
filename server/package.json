@@ -11,7 +11,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "migration:run": "npx sequelize-cli db:migrate",
     "migration:seed": "npx sequelize-cli db:seed:all",
-    "migration:both": "cross-env NODE_ENV=production concurrently \"migration:run\" \"migration:seed\"",
+    "migration:both": "cross-env NODE_ENV=production && concurrently \"migration:run\" \"migration:seed\"",
     "start": "nest start",
     "start:dev": "cross-env NODE_ENV=development nest start --watch",
     "start:debug": "nest start --debug --watch",
