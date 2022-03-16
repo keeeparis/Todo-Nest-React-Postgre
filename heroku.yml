@@ -23,12 +23,14 @@ build:
     POSTGRES_PORT: 5432
     PRIVATE_KEY: 'secret_key_1337'
 
-release:
-  image: server
-  command:
-    # - npm run migration:run && npm run migration:seed
-    - npx sequelize-cli db:migrate --env production
-    - npx sequelize-cli db:seed:all --env production
+# release:
+#   image: server
+#   command:
+#     - node_modules/.bin/sequelize db:migrate --env production
+#     - node_modules/.bin/sequelize db:seed:all --env production
+#     # - npm run migration:run && npm run migration:seed
+#     # - npx sequelize-cli db:migrate --env production
+#     # - npx sequelize-cli db:seed:all --env production
     
 run:
   server: node main.js
