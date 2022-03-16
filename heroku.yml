@@ -26,7 +26,9 @@ build:
 release:
   image: server
   command:
-    - npm run migration:run && npm run migration:seed
+    # - npm run migration:run && npm run migration:seed
+    - npx sequelize-cli db:migrate --env production
+    - npx sequelize-cli db:seed:all --env production
     
 run:
   server: node main.js
