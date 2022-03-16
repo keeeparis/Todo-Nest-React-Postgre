@@ -4,8 +4,6 @@ COPY . /app/
 
 RUN npm install --silent
 RUN npm run build
-RUN cd src && ls
-RUN cd src/database && ls
 
 FROM node:12-alpine
 WORKDIR /app
