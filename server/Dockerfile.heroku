@@ -4,13 +4,12 @@ COPY . /app/
 
 RUN npm install --silent
 RUN npm run build
-RUN ls
 
 FROM node:12-alpine
 WORKDIR /app
 
 COPY --from=build /app/dist /app/
-COPY --from=build /app/src/database/ /app/src/database/
+COPY --from=build /app/src/database /app/src/database
 
 COPY package.json /app/package.json
 # COPY wait-for-it.sh /app/wait-for-it.sh
