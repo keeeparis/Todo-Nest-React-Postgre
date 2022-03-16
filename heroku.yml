@@ -12,7 +12,7 @@ setup:
 build:
   docker:
     client: ./client/Dockerfile
-    server: ./server/Dockerfile
+    server: ./server/Dockerfile.heroku
   config:
     NODE_ENV: production
     PORT: 5500
