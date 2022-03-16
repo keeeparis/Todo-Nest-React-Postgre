@@ -3,7 +3,7 @@ setup:
     - plan: heroku-postgresql
       as: DATABASE
   config:
-    POSTGRES_HOST: postgres_db
+    POSTGRES_HOST: localhost
     POSTGRES_USER: postgres
     POSTGRES_DB: todoapp
     POSTGRES_PASSWORD: root
@@ -16,7 +16,7 @@ build:
   config:
     NODE_ENV: production
     PORT: 5500
-    POSTGRES_HOST: postgres_db
+    POSTGRES_HOST: localhost
     POSTGRES_USER: postgres
     POSTGRES_DB: todoapp
     POSTGRES_PASSWORD: root
