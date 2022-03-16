@@ -27,8 +27,6 @@ release:
   image: server
   command:
     - npm run migration:run && npm run migration:seed
-  config:
-    NODE_ENV: production
     
 run:
   server: node main.js
